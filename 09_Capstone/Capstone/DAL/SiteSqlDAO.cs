@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Capstone.Models;
 
 namespace Capstone.DAL
 {
@@ -13,6 +14,11 @@ namespace Capstone.DAL
         public SiteSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
+        }
+
+        public IList<Site> Search(int siteID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
