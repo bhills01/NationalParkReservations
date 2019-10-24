@@ -10,17 +10,6 @@ namespace Capstone
 {
     public class ParkCLI
     {
-        //const string Command_AllParks = "1";
-        ////const string Command_AllEmployees = "2";
-        ////const string Command_EmployeeSearch = "3";
-        ////const string Command_EmployeesWithoutProjects = "4";
-        ////const string Command_ProjectList = "5";
-        ////const string Command_CreateDepartment = "6";
-        ////const string Command_UpdateDepartment = "7";
-        ////const string Command_CreateProject = "8";
-        ////const string Command_AssignEmployeeToProject = "9";
-        ////const string Command_RemoveEmployeeFromProject = "10";
-        //const string Command_Quit = "q";
 
         private IParksDAO parksDAO;
         private ICampgroundDAO campgroundDAO;
@@ -62,7 +51,6 @@ namespace Capstone
                     default:
                         Console.WriteLine("The command provided was not a valid command, please try again.");
                         break;
-
                 }
             }
         }
@@ -72,44 +60,13 @@ namespace Capstone
             Console.Clear();
             PrintHeader();
             GetAllParks();
-            PrintParkMenu();
 
             while (true)
             {
-                //string parkString = Console.ReadLine();
-                //int parkChoice = int.Parse(parkString);
-                //campgroundDAO.Search(parkChoice);
                 SelectCampground();
                 break;
-                //Console.Clear();
-
-                //switch (parkChoice)
-                //{
-                //    case 1:                     
-                //        campgroundDAO.Search(parkChoice);
-                //        SelectCampground();
-                //        break;
-
-                //    case 2:
-                //        campgroundDAO.Search(parkChoice);
-                //        break;
-                //    case 3:
-                //        campgroundDAO.Search(parkChoice);
-                //        break;
-                //    // TODO FIX THIS (Need to change this to an if statement instead of a switch)
-                //    case 4:
-                //        Console.WriteLine("Thank you for using the National Forest Reservation Service!");
-                //        Console.WriteLine("Press [EXIT] to eixt the service.");
-                //        Console.ReadLine();
-                //        Environment.Exit(0);
-                //        return;
-
-                //    default:
-                //        Console.WriteLine("The command provided was not a valid command, please try again.");
-                //        break;
-
-                //}
             }
+            PrintParkMenu();
         }
 
         //private void RemoveEmployeeFromProject()
@@ -337,8 +294,9 @@ namespace Capstone
 
         private void PrintParkMenu()
         {
-            //Console.WriteLine(" Q - Quit");
-            //Console.Write("Enter Selection");
+            Console.WriteLine("Select Campground to view available Sites");
+
+            Console.Write("Enter Selection: ");
         }
 
     }
