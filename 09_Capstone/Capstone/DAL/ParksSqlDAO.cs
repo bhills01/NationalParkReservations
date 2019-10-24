@@ -10,6 +10,12 @@ namespace Capstone.DAL
     {
         private string connectionString;
 
+        // Single Parameter Constructor
+        public ParksSqlDAO(string dbConnectionString)
+        {
+            connectionString = dbConnectionString;
+        }
+
         public IList<Park> GetAllParks()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -34,7 +40,7 @@ namespace Capstone.DAL
                     park.Location = Convert.ToString(reader["location"]);
                     park.EstablishDate = Convert.ToDateTime(reader["establish_date"]);
                     park.Area = Convert.ToInt32(reader["area"]);
-                    park.VisitorCount = Convert.ToInt32(reader["vistors"]);
+                    park.VisitorCount = Convert.ToInt32(reader["visitors"]);
                     park.Description = Convert.ToString(reader["description"]);
 
                     parks.Add(park);
