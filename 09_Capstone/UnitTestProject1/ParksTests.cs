@@ -1,5 +1,6 @@
+using Capstone.DAL;
+using Capstone.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -45,55 +46,33 @@ namespace ProjectOrganizerTests
 
 
         [TestMethod]
-        public void GetAllProjectsTest()
+        public void GetAllParksTest()
         {
             // Arrange
-            ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
+            ParksSqlDAO park = new ParksSqlDAO(connectionString);
+            List<Park> parkList = new List<Park>();
             // Act
-            IList<Project> list = dao.GetAllProjects();
+           
             //Assert
-            Assert.AreEqual(2, list.Count);
+            
         }
 
-        [TestMethod]
-        public void AssignEmployeeToProjectTests()
-        {
-            //Arrange
-            ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
-            // Act
-            dao.AssignEmployeeToProject(1, 1);
-            //Assert
-            Assert.AreEqual(true, true);
 
-        }
 
-        [TestMethod]
-        public void RemoveEmployeeFromProjectTests()
-        {
-            //Arrange
-            ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
-            // Act
-            dao.RemoveEmployeeFromProject(1, 1);
-            //Assert
-            Assert.AreEqual(true, true);
 
-        }
+        
 
-        [TestMethod]
-        public void CreateNewProjectTest()
-        {
-            //Arrange
-            ProjectSqlDAO dao = new ProjectSqlDAO(connectionString);
-            Project testProject = new Project();
-            DateTime date = new DateTime(2010, 10, 10);
-            testProject.Name = "BUG OFF";
-            testProject.StartDate = date;
-            testProject.EndDate = date;
-            // Act
-            dao.CreateProject(testProject);
-            //Assert
-            Assert.AreEqual(true, true);
+        
 
-        }
+        
+
+
+
+
+
+
+
+
     }
 }
+
