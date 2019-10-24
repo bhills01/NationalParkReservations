@@ -16,6 +16,8 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
         
+        // DO WE NEED THIS?!?!
+
         public IList<Reservation> Search(int siteID)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -46,7 +48,7 @@ namespace Capstone.DAL
             }
         }
 
-        public bool IsAvailable(DateTime fromDate, DateTime toDate)
+        public bool IsAvailable(DateTime fromDate, DateTime toDate, int siteID)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -54,7 +56,7 @@ namespace Capstone.DAL
                 connection.Open();
 
                 // Create Command object to execute queary to get all cities
-                SqlCommand cmd = new SqlCommand($"SELECT * FROM reservation", connection);
+                SqlCommand cmd = new SqlCommand($"SELECT * FROM reservation WHERE site_id = '{siteID}'", connection);
 
                 // Execute the command to get a result set. read by the SQLReader
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -75,7 +77,7 @@ namespace Capstone.DAL
 
                 foreach (Reservation reservation in reservations)
                 {
-
+                    
                     if (fromDate >= reservation.FromDate && fromDate <= reservation.ToDate && toDate <= reservation.ToDate && toDate >= reservation.FromDate)
                     {
                         return false;
@@ -85,10 +87,28 @@ namespace Capstone.DAL
             return true;
         }
 
-        public void MakeReservation(DateTime fromDate, DateTime toDate)
+        public bool MakeReservation(DateTime fromDate, DateTime toDate, string name, int siteID)
         {
+            bool areDatesAvailable = IsAvailable(fromDate, toDate, siteID);
+            
+            if (areDatesAvailable)
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    DateTime currentDate = DateTime.Now;
 
+                    connection.Open();
+
+
+                    SqlCommand cmd = new SqlCommand($"INSERT reservation (site_id, name, from_date, to_date, create_date) VALUES ({siteID},'{name}',{fromDate},{toDate},{currentDate})", connection);
+
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    return true;
+                }
+            }
+            return false;
         }
-
     }
 }
