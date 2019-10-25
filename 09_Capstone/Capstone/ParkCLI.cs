@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Capstone
@@ -90,8 +91,37 @@ namespace Capstone
 
         private void GetAllParks()
         {
-            IList<Park> parks = parksDAO.GetAllParks();
+             List<string> Wrap(string text, int margin)
+            {
+                int start = 0, end;
+                var lines = new List<string>();
+                text = Regex.Replace(text, @"\s", " ").Trim();
 
+                while ((end = start + margin) < text.Length)
+                {
+                    while (text[end] != ' ' && end > start)
+                        end -= 1;
+
+                    if (end == start)
+                        end = start + margin;
+
+                    lines.Add(text.Substring(start, end - start));
+                    start = end + 1;
+                }
+
+                if (start < text.Length)
+                    lines.Add(text.Substring(start));
+
+                
+                return lines;
+            }
+
+
+
+
+
+            IList<Park> parks = parksDAO.GetAllParks();
+            
             if (parks.Count > 0)
             {
                 Console.Clear();
@@ -102,7 +132,13 @@ namespace Capstone
                 {
                     Console.WriteLine($" {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}");
                     Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                    Console.WriteLine($"{park.Description,-20}");
+                   List<string> decript = Wrap(park.Description,155);
+                    Console.WriteLine();
+                    foreach (string dp in decript)
+                    {
+                        Console.WriteLine($"         {dp}");
+                    }
+                    Console.WriteLine(); 
                     Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                  
                 }
@@ -206,9 +242,7 @@ namespace Capstone
   #%@%%@@@&%%*      @@@ @@@@@  @@@@@@@@* .@@@.   @@@* @@@# *@@@  @@@ @@@@@ ,@@@@@@@@. @@@@        @@@/,,,   @@@@@@@@@  @@@.@@@@  .@@@ *@@@,    #(@&%@@@@&%,    
    (@@@@@@@@#       @@@ &@@@@ %@@@@@@@@@ .@@@.   @@@* @@@@@@@@@  @@@ #@@@@ @@@@@@@@@@ @@@@@@@,    @@@,     .@@@@@@@@@  @@@. @@@* .@@@  @@@@     ,&@@@@@@@%     
        #@           @@@  @@@@ @@@#  /@@@ .@@@.   @@@* (@@@@@@@%  @@@  @@@@ @@@%  &@@@ @@@@@@@     @@@,     &@@@   @@@& @@@. @@@@ .@@@  @@@@         ,@         
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        ");
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
            
             
         }
@@ -231,8 +265,16 @@ namespace Capstone
 
         private void PrintSiteMenu()
         {
+
             Console.WriteLine("Select Site ID to check for availability: ");
         }
 
+
+
+        
     }
+
 }
+
+   
+
