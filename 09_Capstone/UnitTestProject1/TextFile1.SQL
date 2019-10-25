@@ -1,14 +1,13 @@
 ﻿-- Remove all the data from  the database!
-
-DELETE FROM parks;
-DELETE FROM campground
-DELETE FROM site
 DELETE FROM reservation
+DELETE FROM site
+DELETE FROM campground
+DELETE FROM park;
 
 -- Insert some test data
 
 -- WIPE IDENTITIES BACK TO 1
-DBCC CHECKIDENT ('Parks', RESEED, 0)
+DBCC CHECKIDENT ('Park', RESEED, 0)
 DBCC CHECKIDENT ('Campground', RESEED, 0)
 DBCC CHECKIDENT ('Site', RESEED, 0)
 DBCC CHECKIDENT ('Reservation', RESEED, 0)
@@ -67,4 +66,11 @@ insert site (
 				,[max_rv_length]
 				,[utilities]) Values (2,1,6, 0, 20, 1)
 
+--create 2 reservations
 
+insert reservation (
+					[site_id]
+					,[name]
+					,[from_date]
+					,[to_date]
+					,[create_date]) values(1, 'bob', '2019-10-10', '2019-10-20', '2019-10-24 09:40:22.113')

@@ -13,7 +13,7 @@ namespace ProjectOrganizerTests
     {
 
         private TransactionScope transaction;
-        const string connectionString = "Server=TE00156\\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;";
+        const string connectionString = "Server=.\\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;";
 
         [TestInitialize]
         public void Setup()
@@ -50,11 +50,11 @@ namespace ProjectOrganizerTests
         {
             // Arrange
             ParksSqlDAO park = new ParksSqlDAO(connectionString);
-            List<Park> parkList = park.GetAllParks();
-            // Act
-           
-            //Assert
             
+            // Act
+            IList<Park> parkList = park.GetAllParks();
+            //Assert
+            Assert.AreEqual(2, parkList.Count);
         }
 
 
