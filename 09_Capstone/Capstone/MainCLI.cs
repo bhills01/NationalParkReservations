@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-    public class ParkCLI
+    public class MainCLI
     {
 
         private IParksDAO parksDAO;
@@ -18,7 +18,7 @@ namespace Capstone
         private ISiteDAO siteDAO;
         private IReservationDAO reservationDAO;
 
-        public ParkCLI(IParksDAO parksDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
+        public MainCLI(IParksDAO parksDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
         {
             this.parksDAO = parksDAO;
             this.campgroundDAO = campgroundDAO;
@@ -63,12 +63,8 @@ namespace Capstone
             Console.Clear();
             PrintHeader();
             GetAllParks();
+            GetCampground();
 
-            while (true)
-            {
-                SelectCampground();
-                break;
-            }
             PrintCampgroundMenu();
             RunSiteMunuCLI();
         }
@@ -78,12 +74,8 @@ namespace Capstone
             Console.Clear();
             PrintHeader();
             PrintCampsiteSelection(parkIntId);
+            SelectSite();
 
-            while (true)
-            {
-                //SelectSite();
-                break;
-            }
             PrintSiteMenu();
             RunReservationMunuCLI();
         }
@@ -166,35 +158,10 @@ namespace Capstone
         }
 
         public int parkIntId = 0;
-        private void SelectCampground()
+        private void GetCampground()
         {
-
-
             string parkId = CLIHelper.GetString("Enter park selection to view campground: ");
             parkIntId = int.Parse(parkId);
-
-            IList<Campground> campgrounds = campgroundDAO.Search(parkIntId);
-
-            
-
-            if (campgrounds.Count > 0)
-            {
-                Console.Clear();
-                PrintHeader();
-                Console.WriteLine();
-                Console.WriteLine(@"Campground ID                           Campground Name                       OpenMonth            Closed Month              
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                foreach (Campground campground in campgrounds)
-                {
-                    string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
-                    string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
-                    Console.WriteLine($"Campground ID: {campground.CampgroundId.ToString().PadRight(5)}, Camp Ground Name: {(campground.Name).PadRight(30)} Open From:{openMonth}, Until: {closedMonth}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("**** NO RESULTS ****");
-            }
         }
 
         public int siteIntId = 0;
@@ -347,7 +314,12 @@ namespace Capstone
         }
 
 
+        public int HowManyDays(DateTime toDate, DateTime fromDate)
+        {
+           TimeSpan value = toDate.Subtract(fromDate);
 
+            return value.Days;
+        }
         
     }
 
