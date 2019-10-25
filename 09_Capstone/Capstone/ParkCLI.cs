@@ -24,6 +24,7 @@ namespace Capstone
             this.siteDAO = siteDAO;
             this.reservationDAO = reservationDAO;
         }
+        // TODO Have user put in dates prior to showing available sites. Then make searching exclusive to dates provided
 
         public void RunMainMenuCLI()
         {
@@ -83,6 +84,21 @@ namespace Capstone
                 break;
             }
             PrintSiteMenu();
+            RunReservationMunuCLI();
+        }
+
+        public void RunReservationMunuCLI()
+        {
+            Console.Clear();
+            PrintHeader();
+            PrintSiteSelection(siteIntId);
+
+            while (true)
+            {
+                SelectReservation();
+                break;
+            }
+            PrintSiteMenu();
             RunMainMenuCLI();
         }
 
@@ -138,12 +154,13 @@ namespace Capstone
             }
         }
 
+        public int siteIntId = 0;
         private void SelectSite()
         {
 
 
-            string siteId = CLIHelper.GetString("Enter site selection to check avialability: ");
-            int siteIntId = int.Parse(siteId);
+            string siteId = CLIHelper.GetString("Enter campground selection to check site avialability: ");
+            siteIntId = int.Parse(siteId);
 
             IList<Site> sites = siteDAO.Search(siteIntId);
 
@@ -174,42 +191,44 @@ namespace Capstone
         }
 
 
-        // BOOK MARK THIS
+        // TODO complete Select Reservation
+        public string siteSelection;
+        private void SelectReservation()
+        {
+            string siteIdString = CLIHelper.GetString("Please enter the site you would like to reserve: ");
+            int siteId = int.Parse(siteIdString);
 
-        //private void SelectReservation()
-        //{
+            string checkInDate = CLIHelper.GetString("Enter Check-In Date (YYYY-MM-DD): ");
+            DateTime checkIn = DateTime.Parse(checkInDate);
+            string checkInMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(checkIn.Month);
+
+            string checkOutDate = CLIHelper.GetString("Enter Check-Out Date (YYYY-MM-DD): ");
+            DateTime checkOut = DateTime.Parse(checkOutDate);
+            string checkOutMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(checkOut.Month);
+
+            bool siteAvailable = reservationDAO.IsAvailable(checkIn, checkOut, siteId);
 
 
-        //    string siteId = CLIHelper.GetString("Enter site selection to check avialability: ");
-        //    int siteIntId = int.Parse(siteId);
+            if (siteAvailable == true)
+            {
+                decimal totalPlaceHolder = 149.99M;
+                string confirmReservation = CLIHelper.GetString($"Those dates are available. Would you like to confirm and reserve those dates for {totalPlaceHolder}. (Y)es or (N)o: ");
+                
+                if (confirmReservation == "y")
+                {
+                    string rezName = CLIHelper.GetString("Please Enter the full name of the party that is Registering: ");
+                    reservationDAO.MakeReservation(checkIn, checkOut, rezName, siteId);
+                    Console.WriteLine("***RESERVATION CONFIRMED SUCCESSFULLY***");
+                }
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine(".....loser....");
+            }
 
-        //    IList<Site> sites = siteDAO.Search(siteIntId);
-
-
-
-        //    if (sites.Count > 0)
-        //    {
-        //        Console.Clear();
-        //        PrintHeader();
-        //        foreach (Site site in sites)
-        //        {
-        //            string utilitiesAvailable;
-        //            if (site.Utilities == true)
-        //            {
-        //                utilitiesAvailable = "Yes";
-        //            }
-        //            else
-        //            {
-        //                utilitiesAvailable = "No";
-        //            }
-        //            Console.WriteLine($"Site ID: {site.SiteId.ToString().PadRight(5)}, Site Number: {site.SiteNumber.ToString().PadRight(30)} Max Occupants {site.MaxOccupants}, Accesible {site.Accesible}, Max RV Length: {site.MaxRvLength}, Utilities Available?: {utilitiesAvailable}");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("**** NO RESULTS ****");
-        //    }
-        //}
+        }
 
         private void PrintCampsiteSelection(int parkID)
         {
@@ -221,6 +240,27 @@ namespace Capstone
                     string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
                     Console.WriteLine($"Campground ID: {campground.CampgroundId.ToString().PadRight(5)}, Camp Ground Name: {(campground.Name).PadRight(30)} Open From:{openMonth}, Until: {closedMonth}");
                 }
+        }
+
+        private void PrintSiteSelection(int siteId)
+        {
+            IList<Site> sites = siteDAO.Search(siteIntId);
+            
+            Console.Clear();
+            PrintHeader();
+            foreach (Site site in sites)
+            {
+                string utilitiesAvailable;
+                if (site.Utilities == true)
+                {
+                    utilitiesAvailable = "Yes";
+                }
+                else
+                {
+                    utilitiesAvailable = "No";
+                }
+                Console.WriteLine($"Site ID: {site.SiteId.ToString().PadRight(5)}, Site Number: {site.SiteNumber.ToString().PadRight(30)} Max Occupants {site.MaxOccupants}, Accesible {site.Accesible}, Max RV Length: {site.MaxRvLength}, Utilities Available?: {utilitiesAvailable}");
+            }
         }
 
 
