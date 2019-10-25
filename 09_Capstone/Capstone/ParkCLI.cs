@@ -217,9 +217,12 @@ namespace Capstone
             {
                 Console.Clear();
                 PrintHeader();
+                Console.WriteLine();
+                Console.WriteLine(@"Campground ID                           Campground Name                       OpenMonth            Closed Month              
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 foreach (Campground campground in campgrounds)
                 {
-                    Console.WriteLine($"Campground ID: {campground.CampgroundId.ToString().PadRight(5)}, Camp Ground Name: {(campground.Name).PadRight(30)} Open From:{campground.OpenMonth}, Until: {campground.ClosedMonth}");
+                    Console.WriteLine($"{campground.CampgroundId.ToString().PadRight(5)}{(campground.Name).PadRight(30)}{campground.OpenMonth}{campground.ClosedMonth}");
                 }
             }
             else
@@ -276,7 +279,8 @@ namespace Capstone
   #%@%%@@@&%%*      @@@ @@@@@  @@@@@@@@* .@@@.   @@@* @@@# *@@@  @@@ @@@@@ ,@@@@@@@@. @@@@        @@@/,,,   @@@@@@@@@  @@@.@@@@  .@@@ *@@@,    #(@&%@@@@&%,    
    (@@@@@@@@#       @@@ &@@@@ %@@@@@@@@@ .@@@.   @@@* @@@@@@@@@  @@@ #@@@@ @@@@@@@@@@ @@@@@@@,    @@@,     .@@@@@@@@@  @@@. @@@* .@@@  @@@@     ,&@@@@@@@%     
        #@           @@@  @@@@ @@@#  /@@@ .@@@.   @@@* (@@@@@@@%  @@@  @@@@ @@@%  &@@@ @@@@@@@     @@@,     &@@@   @@@& @@@. @@@@ .@@@  @@@@         ,@         
-                                                                                                                                                          
+        ----------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
         ");
             Console.WriteLine();
             Console.WriteLine();
