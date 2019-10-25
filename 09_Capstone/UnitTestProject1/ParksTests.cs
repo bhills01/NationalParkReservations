@@ -50,7 +50,7 @@ namespace ProjectOrganizerTests
         {
             // Arrange
             ParksSqlDAO park = new ParksSqlDAO(connectionString);
-            List<Park> parkList = new List<Park>();
+            List<Park> parkList = park.GetAllParks();
             // Act
            
             //Assert

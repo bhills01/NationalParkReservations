@@ -35,13 +35,12 @@ namespace Capstone.DAL
                 {
                     Campground campground = new Campground();
 
-                   campground.CampgroundId = Convert.ToInt32(reader["campground_id"]);
-                   campground.ParkId = Convert.ToInt32(reader["park_id"]);
-                   campground.Name = Convert.ToString(reader["name"]);
+                    campground.CampgroundId = Convert.ToInt32(reader["campground_id"]);
+                    campground.ParkId = Convert.ToInt32(reader["park_id"]);
+                    campground.Name = Convert.ToString(reader["name"]);
                     campground.OpenMonth = Convert.ToInt32(reader["open_from_mm"]);
                     campground.ClosedMonth = Convert.ToInt32(reader["open_to_mm"]);
                     campground.DailyFee = Convert.ToDecimal(reader["daily_fee"]);
-
                     campgrounds.Add(campground);
                 }
                 return campgrounds;
