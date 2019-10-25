@@ -79,7 +79,7 @@ namespace Capstone
 
             while (true)
             {
-                SelectSite();
+                //SelectSite();
                 break;
             }
             PrintSiteMenu();
@@ -94,13 +94,17 @@ namespace Capstone
 
             if (parks.Count > 0)
             {
+                Console.Clear();
+                PrintHeader();
+                Console.WriteLine("|Park ID|           |Park Name|                 |Location|           |Established|        |Size|           |Annual Visitors|                                         ");
+                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 foreach (Park park in parks)
                 {
-                    Console.WriteLine($" Park ID: ({park.ParkId}) {park.Name}, Location: ");
-                    Console.WriteLine($"Established on: {park.EstablishDate}, Park Size: {park.Area}, Annual Visitors: {park.VisitorCount}");
-                    Console.WriteLine($"Description: {park.Description}");
-                    Console.WriteLine();
-                    Console.WriteLine();
+                    Console.WriteLine($" {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}");
+                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine($"{park.Description,-20}");
+                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                 
                 }
             }
             else
@@ -127,10 +131,10 @@ namespace Capstone
                 PrintHeader();
                 Console.WriteLine();
                 Console.WriteLine(@"Campground ID                           Campground Name                       OpenMonth            Closed Month              
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 foreach (Campground campground in campgrounds)
                 {
-                    Console.WriteLine($"Campground ID: {campground.CampgroundId.ToString().PadRight(5)}, Camp Ground Name: {(campground.Name).PadRight(30)} Open From:{campground.OpenMonth}, Until: {campground.ClosedMonth}");
+                    Console.WriteLine($"{campground.CampgroundId.ToString().PadRight(20)}{(campground.Name).PadRight(30)} {campground.OpenMonth}{campground.ClosedMonth}");
                 }
             }
             else
@@ -192,8 +196,7 @@ namespace Capstone
 
         private void PrintHeader()
         {
-            Console.WriteLine(@"                                                                                                                                                               
-                                                                                                                                                               
+            Console.WriteLine(@"                                                                                                                                                                                                                                                                                                                       
        %#           @@@& @@@@    @@@@   @@@@@@@. @@@* @@@@@@@@@  @@@# @@@@    @@@@    @@@@        @@@@@@@@@   @@@@&    @@@@@@@@@ .@@@  &@@@         %%         
       @@( .         @@@@ @@@@   /@@@@# (#%@@@%## @@@* @@@&.#@@@  @@@@ @@@@   *@@@@%   @@@@        @@@/./@@@   @@@@@    @@@*.@@@@ .@@@  @@@%        &@( /       
       @@@@/         @@@@ @@@@   @@@@@@   .@@@.   @@@* @@@# *@@@  @@@@@@@@@   @@@@@@   @@@@        @@@, .@@@  ,@@@@@.   @@@. %@@@ .@@@ %@@@         &@@@%       
@@ -203,11 +206,11 @@ namespace Capstone
   #%@%%@@@&%%*      @@@ @@@@@  @@@@@@@@* .@@@.   @@@* @@@# *@@@  @@@ @@@@@ ,@@@@@@@@. @@@@        @@@/,,,   @@@@@@@@@  @@@.@@@@  .@@@ *@@@,    #(@&%@@@@&%,    
    (@@@@@@@@#       @@@ &@@@@ %@@@@@@@@@ .@@@.   @@@* @@@@@@@@@  @@@ #@@@@ @@@@@@@@@@ @@@@@@@,    @@@,     .@@@@@@@@@  @@@. @@@* .@@@  @@@@     ,&@@@@@@@%     
        #@           @@@  @@@@ @@@#  /@@@ .@@@.   @@@* (@@@@@@@%  @@@  @@@@ @@@%  &@@@ @@@@@@@     @@@,     &@@@   @@@& @@@. @@@@ .@@@  @@@@         ,@         
-        ----------------------------------------------------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         ");
-            Console.WriteLine();
-            Console.WriteLine();
+           
+            
         }
 
         private void PrintMainMenu()
