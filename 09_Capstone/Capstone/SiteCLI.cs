@@ -113,26 +113,28 @@ namespace Capstone
             // TODO Here is where to edit the SITE MENU
             {
                 Console.WriteLine();
-                Console.WriteLine($"                                         |Campground Name| {userCampgroundName}                     |Total Price for {totalDays} Days| {totalCost:C}                       ");
-                Console.WriteLine();
-                Console.WriteLine("|Site ID|           |Maximum Occupancy|                 |Handicap Accessible|           |Maximum RV Length|        |Utilities Available|     |Campsite Number|                                                       ");
-                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine($"                                             {userCampgroundName}                     |Total Price for {totalDays} Days| {totalCost:C}                       ");
+                Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine("  [ Site ID ]           [ Maximum Occupancy ]         [ Handicap Accessible ]     [ Maximum RV Length ]          [ Utilities Available ]   [ Campsite Number ]                                                       ");
+                Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________");
                 foreach (Site site in sites)
                 {
                     string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "no";
                     string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "no";
-                    Console.WriteLine($"      {site.SiteId.ToString()} {site.MaxOccupants,30}                          {isAccessible}                             {site.MaxRvLength} ft.               {hasUtilities}                          {site.SiteNumber}              ");
-                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ");
 
                 }
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+
             }
         }
 
         private void PrintSiteChoices()
         {
+            Console.WriteLine();
+            Console.Write(@"    Press M - Main Menu                                             Enter Site ID To Confirm Reservation: ");
             Console.WriteLine(" Enter Site ID to confirm your Reservation");
-            Console.WriteLine(" M - Main Menu");
-            Console.Write("Enter Selection: ");
+           
         }
         /// <summary>
         /// Given two dates, calculates the difference in days

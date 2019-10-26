@@ -106,6 +106,7 @@ ________________________________________________________________________________
                         if (userChoice == cgIdString)
                         {
                             // TODO need to put fix it if the user does not enter date correctly here. Can probably override CliHelper Get String method to fix
+                            //TODO found problem, when selecting a campground right befor entering dates, will not accept 2 or 3, it says the choice is invalid
                             //string from = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
                             //string to = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
                             //DateTime fromDate = DateTime.Parse(from);
