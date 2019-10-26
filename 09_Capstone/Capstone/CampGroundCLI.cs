@@ -26,6 +26,11 @@ namespace Capstone
         }
 
         int userParkId;
+
+        /// <summary>
+        /// Runs menu to give user a choice of campgrounds from the choosen park.
+        /// </summary>
+        /// <param name="parkId"></param>
         public void RunCampGroundCLI(int parkId)
         {
             userParkId = parkId;
@@ -44,12 +49,15 @@ namespace Capstone
                     if (userChoice == cgIdString)
                     {
                         // TODO need to put fix it if the user does not enter date correctly here. Can probably override CliHelper Get String method to fix
-                        string from = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
-                        string to = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
-                        DateTime fromDate = DateTime.Parse(from);
-                        DateTime toDate = DateTime.Parse(to);
-                        Console.WriteLine($"From {fromDate}, To {toDate}");
-                        Console.ReadLine();
+                        //string from = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
+                        //string to = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
+                        //DateTime fromDate = DateTime.Parse(from);
+                        //DateTime toDate = DateTime.Parse(to);                        
+                        DateTime fromDate = CLIHelper.GetDateTime("Please enter arrival Date(YYYY-MM-DD): ");
+                        DateTime toDate = CLIHelper.GetDateTime("Please enter arrival Date (YYYY-MM-DD): ");
+                        SiteCLI siteCLI = new SiteCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
+                        siteCLI.RunSiteCLI(campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
+
 
                     }
                     else
@@ -71,7 +79,9 @@ namespace Capstone
                 }
             }
         }
-
+        /// <summary>
+        /// Displays the camps in the choosen park ID.
+        /// </summary>
         private void GetCampGroundList()
         {
 
@@ -89,7 +99,9 @@ namespace Capstone
                 }
             }
         }
-
+        /// <summary>
+        /// Displays user choices for Campground Menu
+        /// </summary>
         private void PrintCampGroundChoices()
         {
             Console.WriteLine(" Enter Campground ID to view Site availability");

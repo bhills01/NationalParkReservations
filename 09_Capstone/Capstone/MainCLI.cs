@@ -162,48 +162,48 @@ namespace Capstone
         //        }
         //    }
 
-        public int parkIntId = 0;
-        private void GetCampground()
-        {
-            string parkId = CLIHelper.GetString("Enter park selection to view campground: ");
-            parkIntId = int.Parse(parkId);
-        }
+        //public int parkIntId = 0;
+        //private void GetCampground()
+        //{
+        //    string parkId = CLIHelper.GetString("Enter park selection to view campground: ");
+        //    parkIntId = int.Parse(parkId);
+        //}
 
-        public int siteIntId = 0;
-        private void SelectSite()
-        {
-
-
-            string siteId = CLIHelper.GetString("Enter campground selection to check site avialability: ");
-            siteIntId = int.Parse(siteId);
-
-            IList<Site> sites = siteDAO.Search(siteIntId);
+        //public int siteIntId = 0;
+        //private void SelectSite()
+        //{
 
 
+        //    string siteId = CLIHelper.GetString("Enter campground selection to check site avialability: ");
+        //    siteIntId = int.Parse(siteId);
 
-            if (sites.Count > 0)
-            {
-                Console.Clear();
-                PrintHeader();
-                foreach (Site site in sites)
-                {
-                    string utilitiesAvailable;
-                    if (site.Utilities == true)
-                    {
-                        utilitiesAvailable = "Yes";
-                    }
-                    else
-                    {
-                        utilitiesAvailable = "No";
-                    }
-                    Console.WriteLine($"Site ID: {site.SiteId.ToString().PadRight(5)}, Site Number: {site.SiteNumber.ToString().PadRight(30)} Max Occupants {site.MaxOccupants}, Accesible {site.Accesible}, Max RV Length: {site.MaxRvLength}, Utilities Available?: {utilitiesAvailable}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("**** NO RESULTS ****");
-            }
-        }
+        //    IList<Site> sites = siteDAO.Search(siteIntId);
+
+
+
+        //    if (sites.Count > 0)
+        //    {
+        //        Console.Clear();
+        //        PrintHeader();
+        //        foreach (Site site in sites)
+        //        {
+        //            string utilitiesAvailable;
+        //            if (site.Utilities == true)
+        //            {
+        //                utilitiesAvailable = "Yes";
+        //            }
+        //            else
+        //            {
+        //                utilitiesAvailable = "No";
+        //            }
+        //            Console.WriteLine($"Site ID: {site.SiteId.ToString().PadRight(5)}, Site Number: {site.SiteNumber.ToString().PadRight(30)} Max Occupants {site.MaxOccupants}, Accesible {site.Accesible}, Max RV Length: {site.MaxRvLength}, Utilities Available?: {utilitiesAvailable}");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("**** NO RESULTS ****");
+        //    }
+        //}
 
 
         // TODO complete Select Reservation
@@ -303,26 +303,26 @@ namespace Capstone
             Console.Write("Enter Selection: ");
         }
 
-        private void PrintCampgroundMenu()
-        {
-            Console.Write("Select Campground to view available Sites: ");
+        //private void PrintCampgroundMenu()
+        //{
+        //    Console.Write("Select Campground to view available Sites: ");
 
-        }
+        //}
 
-        private void PrintSiteMenu()
-        {
+        //private void PrintSiteMenu()
+        //{
 
-            Console.WriteLine("Select Site ID to check for availability: ");
-        }
+        //    Console.WriteLine("Select Site ID to check for availability: ");
+        //}
 
 
-        public int HowManyDays(DateTime toDate, DateTime fromDate)
-        {
-           TimeSpan value = toDate.Subtract(fromDate);
+        //public int HowManyDays(DateTime toDate, DateTime fromDate)
+        //{
+        //    TimeSpan value = toDate.Subtract(fromDate);
 
-            return value.Days;
-        }
-        
+        //    return value.Days;
+        //}
+
     }
 
 }

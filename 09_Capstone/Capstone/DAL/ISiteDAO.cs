@@ -7,6 +7,6 @@ namespace Capstone.DAL
 {
     public interface ISiteDAO
     {
-        IList<Site> Search(int siteID);
+        IList<Site> Search(int siteID, DateTime fromDate, DateTime toDate);
     }
 }
