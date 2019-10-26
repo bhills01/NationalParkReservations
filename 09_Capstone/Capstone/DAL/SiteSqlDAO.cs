@@ -21,16 +21,17 @@ namespace Capstone.DAL
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // Apoen the connection to SQL Server
                 connection.Open();
 
-                // Create Command object to execute queary to get all cities
-                SqlCommand cmd = new SqlCommand($"SELECT * FROM site WHERE campground_id = '{campgroundID}'", connection);
-
-                // Execute the command to get a result set. read by the SQLReader
+                SqlCommand cmd = new SqlCommand($"SELECT * " +
+                    $"FROM reservation r " +
+                    $"JOIN site s ON s.site_id = r.site_id " +
+                    $"JOIN campground cg ON cg.campground_id = s.campground_id " +
+                    $"WHERE s.campground_id = @campgroundID"
+                    , connection);
+                cmd.Parameters.AddWithValue("@campgroundID", campgroundID);
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                // Loop through the rows, and print data to the screen
                 List<Site> sites = new List<Site>();
                 while (reader.Read())
                 {
@@ -42,48 +43,51 @@ namespace Capstone.DAL
                     site.Accesible = Convert.ToBoolean(reader["accessible"]);
                     site.MaxRvLength = Convert.ToInt32(reader["max_rv_length"]);
                     site.Utilities = Convert.ToBoolean(reader["utilities"]);
-                    sites.Add(site);
+                    site.FromDate = Convert.ToDateTime(reader["from_date"]);
+                    site.ToDate = Convert.ToDateTime(reader["to_date"]);
+
+
+                    bool siteAvailable = IsAvailable(fromDate, toDate, site.FromDate, site.ToDate, site.SiteId);
+                    if (siteAvailable)
+                    {
+                        sites.Add(site);
+                    }
                 }
                 return sites;
             }
 
         }
-        public bool IsAvailable(DateTime fromDate, DateTime toDate, int siteID)
+        public bool IsAvailable(DateTime userFromDate, DateTime userToDate, DateTime resFromDate, DateTime resToDate, int siteID)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                // Apoen the connection to SQL Server
-                connection.Open();
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+                //connection.Open();
 
-                // Create Command object to execute queary to get all cities
-                SqlCommand cmd = new SqlCommand($"SELECT * FROM reservation WHERE site_id = '{siteID}'", connection);
+                //SqlCommand cmd = new SqlCommand($"SELECT * " +
+                //    $"FROM reservation r " +
+                //    $"JOIN site s ON s.site_id = r.site_id " +
+                //    $"JOIN campground cg ON cg.campground_id = s.campground_id " +
+                //    $"WHERE s.site_id = @siteID"
+                //    , connection);
+                //cmd.Parameters.AddWithValue("@siteID", siteID);
+                //SqlDataReader reader = cmd.ExecuteReader();
 
-                // Execute the command to get a result set. read by the SQLReader
-                SqlDataReader reader = cmd.ExecuteReader();
+                //List<Reservation> reservations = new List<Reservation>();
+                //while (reader.Read())
+                //{
+                //    Reservation reservation = new Reservation();
+                //    reservation.SiteId = Convert.ToInt32(reader["site_id"]);
+                //    reservation.FromDate = Convert.ToDateTime(reader["from_date"]);
+                //    reservation.ToDate = Convert.ToDateTime(reader["to_date"]);
+                //    foreach (Reservation reservation1 in reservation)
+                //    {
 
-                // Loop through the rows, and print data to the screen
-                List<Reservation> reservations = new List<Reservation>();
-                while (reader.Read())
+                if (userFromDate >= resFromDate && userFromDate <= resToDate && userToDate <= resToDate && userToDate >= resFromDate)
                 {
-                    Reservation reservation = new Reservation();
-                    reservation.ReservationId = Convert.ToInt32(reader["reservation_id"]);
-                    reservation.SiteId = Convert.ToInt32(reader["site_id"]);
-                    reservation.Name = Convert.ToString(reader["name"]);
-                    reservation.FromDate = Convert.ToDateTime(reader["from_date"]);
-                    reservation.ToDate = Convert.ToDateTime(reader["to_date"]);
-                    reservation.CreateDate = Convert.ToDateTime(reader["create_date"]);
-                    reservations.Add(reservation);
-                }
-
-                foreach (Reservation reservation in reservations)
-                {
-
-                    if (fromDate >= reservation.FromDate && fromDate <= reservation.ToDate && toDate <= reservation.ToDate && toDate >= reservation.FromDate)
-                    {
                         return false;
-                    }
+
                 }
-            }
+            
             return true;
         }
 

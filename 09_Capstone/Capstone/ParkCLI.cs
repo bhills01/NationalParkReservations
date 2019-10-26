@@ -76,29 +76,29 @@ namespace Capstone
         /// </summary>
         private void GetAllParks()
         {
-            List<string> Wrap(string text, int margin)
-            {
-                int start = 0, end;
-                var lines = new List<string>();
-                text = Regex.Replace(text, @"\s", " ").Trim();
+            //List<string> Wrap(string text, int margin)
+            //{
+            //    int start = 0, end;
+            //    var lines = new List<string>();
+            //    text = Regex.Replace(text, @"\s", " ").Trim();
 
-                while ((end = start + margin) < text.Length)
-                {
-                    while (text[end] != ' ' && end > start)
-                        end -= 1;
+            //    while ((end = start + margin) < text.Length)
+            //    {
+            //        while (text[end] != ' ' && end > start)
+            //            end -= 1;
 
-                    if (end == start)
-                        end = start + margin;
+            //        if (end == start)
+            //            end = start + margin;
 
-                    lines.Add(text.Substring(start, end - start));
-                    start = end + 1;
-                }
+            //        lines.Add(text.Substring(start, end - start));
+            //        start = end + 1;
+            //    }
 
-                if (start < text.Length)
-                    lines.Add(text.Substring(start));
+            //    if (start < text.Length)
+            //        lines.Add(text.Substring(start));
 
-                return lines;
-            }
+            //    return lines;
+            //}
 
             IList<Park> parks = parksDAO.GetAllParks();
             // TODO Here is where to edit the PARK MENU

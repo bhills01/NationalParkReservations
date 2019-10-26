@@ -57,7 +57,7 @@ namespace Capstone
                         decimal totalCost = totalDays * userDailyFee;
 
                         // TODO need to put fix it if the user does not enter their choice to confirm correctly here. 
-                        string apptConfirm = CLIHelper.GetString($"You your total is {totalCost}, would you like to confirm your reservation. (Y)es or (N): ");
+                        string apptConfirm = CLIHelper.GetString($"Your total is {totalCost:C}, would you like to confirm your reservation. (Y)es or (N): ");
                         bool confirmAppointment;
                         if (apptConfirm == "y")
                         {
@@ -119,9 +119,20 @@ namespace Capstone
                 Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________");
                 foreach (Site site in sites)
                 {
-                    string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "no";
-                    string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "no";
-                    Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ");
+
+                    //IList<Reservation> siteAvailable = reservationDAO.IsAvailable(userFromDate, userToDate, userCampgroundID);
+
+                    //bool siteAvailable = reservationDAO.IsAvailable(userFromDate, userToDate, userCampgroundID);
+
+                    //if (siteAvailable == true)
+                    //{
+                        //foreach (Reservation reservation in siteAvailable)
+                        //{
+                        string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "no";
+                        string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "no";
+                        Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ");
+                        //}
+                    //}
 
                 }
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
@@ -133,7 +144,7 @@ namespace Capstone
         {
             Console.WriteLine();
             Console.Write(@"    Press M - Main Menu                                             Enter Site ID To Confirm Reservation: ");
-            Console.WriteLine(" Enter Site ID to confirm your Reservation");
+            //Console.WriteLine(" Enter Site ID to confirm your Reservation");
            
         }
         /// <summary>
