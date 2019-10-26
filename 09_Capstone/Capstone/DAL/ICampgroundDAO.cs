@@ -7,7 +7,7 @@ namespace Capstone.DAL
 {
     public interface ICampgroundDAO
     {
-        IList<Campground> GetAllCampground();
+        //IList<Campground> GetAllCampground();
         IList<Campground> Search(int parkID);
     }
 }
