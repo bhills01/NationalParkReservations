@@ -33,81 +33,141 @@ namespace Capstone
         /// <param name="parkId"></param>
         public void RunCampGroundCLI(int parkId)
         {
-            userParkId = parkId;
-            Console.Clear();
-            PrintHeader();
-            GetCampGroundList();
-            PrintCampGroundChoices();
-
-            while (true)
+            List<string> Wrap(string text, int margin)
             {
-                string userChoice = Console.ReadLine();
-                IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
-                foreach (Campground campground in campgrounds)
+                int start = 0, end;
+                var lines = new List<string>();
+                text = Regex.Replace(text, @"\s", " ").Trim();
+
+                while ((end = start + margin) < text.Length)
                 {
-                    string cgIdString = campground.CampgroundId.ToString();
-                    if (userChoice == cgIdString)
+                    while (text[end] != ' ' && end > start)
+                        end -= 1;
+
+                    if (end == start)
+                        end = start + margin;
+
+                    lines.Add(text.Substring(start, end - start));
+                    start = end + 1;
+                }
+
+                if (start < text.Length)
+                    lines.Add(text.Substring(start));
+
+                return lines;
+            }
+
+            IList<Park> parks = parksDAO.GetAllParks();
+            foreach (Park park in parks)
+            {
+
+                List<string> decript = Wrap(park.Description, 155);
+                foreach (string dp in decript)
+                {
+                    Console.WriteLine($"         {dp}");
+                }
+                Console.WriteLine();
+
+                userParkId = parkId;
+                IList<Park> pa = parksDAO.GetAllParks();
+                string parkName = "";
+                string parkDecript = "";
+                foreach (Park name in pa)
+                {
+                    if (name.ParkId == userParkId)
                     {
-                        // TODO need to put fix it if the user does not enter date correctly here. Can probably override CliHelper Get String method to fix
-                        //string from = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
-                        //string to = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
-                        //DateTime fromDate = DateTime.Parse(from);
-                        //DateTime toDate = DateTime.Parse(to);                        
-                        DateTime fromDate = CLIHelper.GetDateTime("Please enter arrival Date(YYYY-MM-DD): ");
-                        DateTime toDate = CLIHelper.GetDateTime("Please enter arrival Date (YYYY-MM-DD): ");
-                        SiteCLI siteCLI = new SiteCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                        siteCLI.RunSiteCLI(campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
-
-
+                        parkName = name.Name;
+                        parkDecript = name.Description;
                     }
-                    else
+                }
+                Console.Clear();
+                PrintHeader();
+                Console.WriteLine();
+                Console.WriteLine($@"                                                                         {parkName}
+__________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine();
+                foreach (string dp in decript)
+                {
+                    Console.WriteLine($"         {dp}");
+                }
+                Console.WriteLine();
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+
+                GetCampGroundList();
+                PrintCampGroundChoices();
+
+                while (true)
+                {
+                    string userChoice = Console.ReadLine();
+                    IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
+                    foreach (Campground campground in campgrounds)
                     {
-                        switch (userChoice.ToLower())
+                        string cgIdString = campground.CampgroundId.ToString();
+                        if (userChoice == cgIdString)
                         {
+                            // TODO need to put fix it if the user does not enter date correctly here. Can probably override CliHelper Get String method to fix
+                            //string from = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
+                            //string to = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
+                            //DateTime fromDate = DateTime.Parse(from);
+                            //DateTime toDate = DateTime.Parse(to);   
+                            Console.WriteLine();
+                            DateTime fromDate = CLIHelper.GetDateTime("Please Enter Arrival Date(YYYY-MM-DD): ");
+                            DateTime toDate = CLIHelper.GetDateTime("Please Enter Departure Date (YYYY-MM-DD): ");
+                            SiteCLI siteCLI = new SiteCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
+                            siteCLI.RunSiteCLI(campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
 
-                            case "m":
-                                Console.Clear();
-                                MainCLI mainCLI = new MainCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                                mainCLI.RunMainMenuCLI();
-                                break;
 
-                            default:
-                                Console.WriteLine("The command provided was not a valid command, please try again.");
-                                break;
+                        }
+                        else
+                        {
+                            switch (userChoice.ToLower())
+                            {
+
+                                case "m":
+                                    Console.Clear();
+                                    MainCLI mainCLI = new MainCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
+                                    mainCLI.RunMainMenuCLI();
+                                    break;
+
+                                default:
+                                    Console.WriteLine("The command provided was not a valid command, please try again.");
+                                    break;
+                            }
                         }
                     }
                 }
             }
-        }
-        /// <summary>
-        /// Displays the camps in the choosen park ID.
-        /// </summary>
-        private void GetCampGroundList()
-        {
-
-            IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
-            // TODO Here is where to edit the CAMPGROUND MENU
+            /// <summary>
+            /// Displays the camps in the choosen park ID.
+            /// </summary>
+            void GetCampGroundList()
             {
-                Console.WriteLine("|Campground ID|           |Campground Name|                 |Open Month|           |Closing Month|        |Daily Fee|                                                       ");
-                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                foreach (Campground campground in campgrounds)
+
+                IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
+                // TODO Here is where to edit the CAMPGROUND MENU
                 {
-                    string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
-                    string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
-                    Console.WriteLine($"      {campground.CampgroundId.ToString().PadRight(5)}     {(campground.Name).PadRight(30)}          {openMonth}               {closedMonth}                       {campground.DailyFee:C}                 ");
-                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ");
+                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+                    foreach (Campground campground in campgrounds)
+                    {
+                        string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
+                        string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
+                        Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(20)}     {(campground.Name).PadRight(15)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ");
+                        
+                    }
+                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
                 }
             }
-        }
-        /// <summary>
-        /// Displays user choices for Campground Menu
-        /// </summary>
-        private void PrintCampGroundChoices()
-        {
-            Console.WriteLine(" Enter Campground ID to view Site availability");
-            Console.WriteLine(" M - Main Menu");
-            Console.Write("Enter Selection: ");
-        }
+            /// <summary>
+            /// Displays user choices for Campground Menu
+            /// </summary>
+            void PrintCampGroundChoices()
+            {
+                Console.WriteLine();
+                Console.Write(@"    Press M - Main Menu                                             Enter Campground ID To View Site Availability: ");
+               
+            }
 
+        }
     }
 }

@@ -103,20 +103,20 @@ namespace Capstone
             IList<Park> parks = parksDAO.GetAllParks();
             // TODO Here is where to edit the PARK MENU
             {
-                Console.WriteLine("|Park ID|           |Park Name|                 |Location|           |Established|        |Size|           |Annual Visitors|                                         ");
-                Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine("                    [ Park ID ]           [ Park Name ]                [ Location ]          [ Established ]     [ Size ]         [ Annual Visitors ]                                         ");
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
                 foreach (Park park in parks)
                 {
-                    Console.WriteLine($" {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}");
-                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                    List<string> decript = Wrap(park.Description, 155);
-                    Console.WriteLine();
-                    foreach (string dp in decript)
-                    {
-                        Console.WriteLine($"         {dp}");
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    Console.WriteLine($"                         {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}");
+                    //Console.WriteLine("_____________________________________________________________________________________________________________________________________________________________");
+                    //List<string> decript = Wrap(park.Description, 155);
+                    //Console.WriteLine();
+                    //foreach (string dp in decript)
+                    //{
+                    //    Console.WriteLine($"         {dp}");
+                    //}
+                    //Console.WriteLine();
+                    //Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 }
             }
         }
@@ -126,9 +126,10 @@ namespace Capstone
         /// </summary>
         private void PrintParkChoices()
         {
-            Console.WriteLine(" Enter Park ID to Select Park");
-            Console.WriteLine(" M - Main Menu");
-            Console.Write("Enter Selection: ");
+            Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+            Console.WriteLine();
+            Console.Write(@"    Press M - Main Menu                                             Enter Park ID To Select Park: ");
+           
         }
 
 
