@@ -50,7 +50,7 @@ namespace Capstone
                     if (userChoice == parkIdString)
                     {
                         CampGroundCLI campGroundCLI = new CampGroundCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                        campGroundCLI.RunCampGroundCLI(park.ParkId);
+                        campGroundCLI.RunCampGroundCLI(park.Name, park.ParkId);
 
                     }
                     else

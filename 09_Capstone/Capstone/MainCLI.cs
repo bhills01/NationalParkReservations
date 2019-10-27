@@ -53,8 +53,11 @@ namespace Capstone
                         break;
 
                     case "q":
-                        Console.WriteLine("Thank you for using the National Forest Reservation Service!");
-                        Console.WriteLine("Press [EXIT] to eixt the service.");
+                        PrintHeader();
+                        Console.WriteLine();
+                        Console.WriteLine("---------------------------------------------------------THANK YOU FOR USING THE NATIONAL PARK RESERVATION SERVICE--------------------------------------------------------", Color.GreenYellow);
+                        Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
+                        Console.WriteLine("**************************************************************      Press [ENTER] to exit the service      ***************************************************************", Color.LightSteelBlue);
                         Console.ReadLine();
                         Environment.Exit(0);
                         return;

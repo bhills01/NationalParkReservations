@@ -32,9 +32,10 @@ namespace Capstone
         /// <summary>
         /// Runs menu to give user a choice of campgrounds from the choosen park.
         /// </summary>
-        /// <param name="parkId"></param>
-        public void RunCampGroundCLI(int parkId)
+        /// <param name = "parkName" name="parkId"></param>
+        public void RunCampGroundCLI(string parkName, int parkId)
         {
+
             List<string> Wrap(string text, int margin)
             {
                 int start = 0, end;
@@ -72,7 +73,7 @@ namespace Capstone
 
                 userParkId = parkId;
                 IList<Park> pa = parksDAO.GetAllParks();
-                string parkName = "";
+                parkName = "";
                 string parkDecript = "";
                 foreach (Park name in pa)
                 {
@@ -86,7 +87,7 @@ namespace Capstone
                 PrintHeader();
                 Console.WriteLine();
                 Console.WriteLine($"                                                                         {parkName}", Color.Yellow);
-Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                 Console.WriteLine();
                 foreach (string dp in decript)
                 {
@@ -111,7 +112,7 @@ Console.WriteLine("_____________________________________________________________
                             DateTime fromDate = CLIHelper.GetDateTime("Please Enter Arrival Date(YYYY-MM-DD): ");
                             DateTime toDate = CLIHelper.GetDateTime("Please Enter Departure Date (YYYY-MM-DD): ");
                             SiteCLI siteCLI = new SiteCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                            siteCLI.RunSiteCLI(parkId, campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
+                            siteCLI.RunSiteCLI(parkName, parkId, campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
                         }
                         else
                         {
@@ -139,7 +140,6 @@ Console.WriteLine("_____________________________________________________________
             {
 
                 IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
-                // TODO Here is where to edit the CAMPGROUND MENU
                 {
                     Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ", Color.YellowGreen);
                     Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
