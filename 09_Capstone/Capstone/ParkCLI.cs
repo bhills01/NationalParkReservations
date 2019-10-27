@@ -133,7 +133,7 @@ namespace Capstone
         {
             Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             Console.WriteLine();
-            Console.Write(@"    Press M - Main Menu                                             Enter Park ID To Select Park: ");
+            Console.Write(@"    Press M - Main Menu                                             Enter Park ID To Select Park: ", Color.WhiteSmoke);
            
         }
 

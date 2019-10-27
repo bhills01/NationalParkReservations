@@ -352,7 +352,7 @@ namespace Capstone
         private void PrintMainMenu()
         {
             Console.WriteLine();
-            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper: ");
+            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper: ", Color.WhiteSmoke);
             
         }
 
