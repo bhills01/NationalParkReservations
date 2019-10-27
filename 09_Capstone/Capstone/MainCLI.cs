@@ -288,32 +288,52 @@ namespace Capstone
             /// </summary>
         protected void PrintHeader()
         {
+
             
-            Console.WriteLine(@"                                                                  
-                                                                             M                                   
-                                                                            MMM                                   
-                                                                           MMMMM                                  
-                                                                          MMMMMMM                                 
-                                                                         MMMMMMMMM                                
-                                                                        MMMMM MMMMM                                
-                                                                       MMMMM=  MMMMM                               
-                                                                      MMMMMM    MMMMM                              
-                                                                     MMMMMM     MMMMMM                             
-                                                                    MMMMMM       MMMMMM,                           
-                                                                   MMMMMM         MMMMMM                         
-                                                                  MMMMMM7          MMMMMM                         
-                                                        M        MMMMMMM           =MMMMMM        M                
-                                                       MMM      MMMMMMM             MMMMMMM      MMM               
-                                                      MMMMM    MMMMMMM               MMMMMMM    NMMMM              
-                                                     MMMMMMM. MMMMMMMMMM           +MMMMMMMMM  =MMMMMM             
-                                                    MMMMMMMMOMMMMMMMMMM             MMMMMMMMMMMMMMMMMMM             
-                                                   MMMMMMMMMMMMMMMMMMM               MMMMMMMMMMMMMMMMMMM.           
-                                                  MMMMMMMMMMMMMMMMMMM=                MMMMMMMMMMMMMMMMMMM           
-                                                 MMMMMMMMMMMMMMMMMMMM.                .MMMMMMMMMMMMMMMMMMM          
-                                                MMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMM          
-                                               MMMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMMM         
-                                              MMMMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMMMM        
-                                             MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",Color.DarkGreen);
+            string s= @"                              
+                                                                             MM                                
+                                                                            MMMM                                
+                                                                           MMMMMM                               
+                                                                         MMMM  MMMM                              
+                                                                        MMMM    MMMM                             
+                                                                       MMMM      MMMM                           
+                                                                      MMMM        MMMMM                         
+                                                                    MMMMM          MMMMM                         
+                                                        M         MMMMMM            MMMMMM         M                
+                                                       MMM       MMMMMMM              MMMMMM      MMM               
+                                                      MMMMM    MMMMMMM                MMMMMMM    NMMMM              
+                                                     MMMMMMM. MMMMMMMMMM            +MMMMMMMMM  =MMMMMM             
+                                                    MMMMMMMMOMMMMMMMMMM              MMMMMMMMMMMMMMMMMMM             
+                                                   MMMMMMMMMMMMMMMMMMM                MMMMMMMMMMMMMMMMMMM.           
+                                                  MMMMMMMMMMMMMMMMMMM=                 MMMMMMMMMMMMMMMMMMM           
+                                                 MMMMMMMMMMMMMMMMMMMM.                 .MMMMMMMMMMMMMMMMMMM          
+                                                MMMMMMMMMMMMMMMMMMMMMMMMMMMM    MMMMMMMMMMMMMMMMMMMMMMMMMMMM          
+                                               MMMMMMMMMMMMMMMMMMMMMMMMMMMMM    MMMMMMMMMMMMMMMMMMMMMMMMMMMMM         
+                   
+";
+            
+            int r = 255;
+            int g = 255;
+            int b = 0;
+            foreach (char ch in s)
+            {
+                
+               Console.Write(ch, Color.FromArgb(r, g, b));
+
+                if (r >= 36 && g >= 18)
+                {
+                    r -= 36;
+                    g -= 18;
+                }
+                else
+                {
+                     r = 255;
+                     g = 255;
+                     b = 0;
+                }
+                
+
+            }
 
  Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             Console.WriteLine(@"                               ______  ____   _____   ______   _____  _______    _____  ______            _____    _____  _    _ 
@@ -332,7 +352,7 @@ namespace Capstone
         private void PrintMainMenu()
         {
             Console.WriteLine();
-            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper: ");
+            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper: ", Color.WhiteSmoke);
             
         }
 
