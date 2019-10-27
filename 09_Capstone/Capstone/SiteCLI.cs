@@ -27,16 +27,29 @@ namespace Capstone
             this.reservationDAO = reservationDAO;
         }
 
-        string userParkName;
-        int userParkId;
-        int userCampgroundID;
-        string userCampgroundName;
-        decimal userDailyFee;
-        DateTime userFromDate;
-        DateTime userToDate;
-        string reservationName;
-        string siteIdString;
-        decimal totalCost;
+
+        // List of variables used in this CLI for displaying on menus.
+        private string userParkName;
+        private int userParkId;
+        private int userCampgroundID;
+        private string userCampgroundName;
+        private decimal userDailyFee;
+        private DateTime userFromDate;
+        private DateTime userToDate;
+        private string reservationName;
+        private string siteIdString;
+        private decimal totalCost;
+
+        /// <summary>
+        /// Runs menu to give user a choice of sites from the choosen campground.
+        /// </summary>
+        /// <param name="parkName"></param>
+        /// <param name="parkId"></param>
+        /// <param name="campgroundId"></param>
+        /// <param name="campgroundName"></param>
+        /// <param name="dailyFee"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         public void RunSiteCLI(string parkName, int parkId, int campgroundId, string campgroundName, decimal dailyFee, DateTime fromDate, DateTime toDate)
         {
             userParkName = parkName;
@@ -101,7 +114,10 @@ namespace Capstone
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Retrieves all sites from the db and displays Top 5 on the screen.
+        /// </summary>
         private void GetSiteList()
         {
             int totalDays = HowManyDays(userFromDate, userToDate);
@@ -155,6 +171,9 @@ namespace Capstone
             }
         }
 
+        /// <summary>
+        /// Provides choices for the Site menu.
+        /// </summary>
         private void PrintSiteChoices()
         {
             // TODO Will, Can we add Color to the "P" and "Site ID" here so they stand out?
@@ -162,15 +181,18 @@ namespace Capstone
             Console.Write(@"    Press P - Previous Menu                                             Enter Site ID To Prompt Reservation Comfirmation                             Enter Selection: ",Color.WhiteSmoke);
         }
 
+        /// <summary>
+        /// Gives choices if no sites are available.
+        /// </summary>
         private void PrintNoSitesAvailableChoices()
         {
-            // TODO Will, Can we add Color to the "P" and "Site ID" here so they stand out?
+            // TODO Will, Can we add Color to the "P" and "M" here so they stand out?
             Console.WriteLine();
             Console.Write(@"    Press P - Previous Menu                                             Press M - Main menu                                    Enter Selection: ", Color.WhiteSmoke);
         }
 
         /// <summary>
-        /// Given two dates, calculates the difference in days
+        /// Given two dates, calculates the difference in days.
         /// </summary>
         /// <param name="toDate"></param>
         /// <param name="fromDate"></param>
@@ -182,8 +204,12 @@ namespace Capstone
             return value.Days;
         }
 
+        /// <summary>
+        /// Prints a summary of the reservation details.
+        /// </summary>
         private void PrintConfirmationPage()
         {
+            int userResId = reservationDAO.GetReservationId();
             string fromMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(userFromDate.Month);
             string toMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(userToDate.Month);
             Console.Clear();
@@ -191,12 +217,13 @@ namespace Capstone
             Console.WriteLine();
             Console.WriteLine($"********************************************************************     RESERVATION SUCCESSFUL     *********************************************************************",Color.Gold);
             Console.WriteLine();
-            Console.WriteLine("  [ Park Name ]           [ Campground ]         [ Site ID ]     [ Check-In Date ]      [ Check Out Date ]      [ Reserved For ]         [Total Due]                      ", Color.GreenYellow);
+            Console.WriteLine("  [Confirmation #]           [ Park Name ]           [ Campground ]         [ Site ID ]     [ Check-In Date ]      [ Check Out Date ]      [ Reserved For ]         [Total Due]                      ", Color.GreenYellow);
             Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
-            Console.WriteLine($"     {userParkName}                 {userCampgroundName}               {siteIdString}          {fromMonth} {userFromDate.Day}, {userFromDate.Year}         {fromMonth} {userToDate.Day}, {userFromDate.Year}         {reservationName}            {totalCost:C}                    ", Color.Gold);
+            Console.WriteLine($"           {userResId}                   {userParkName}                 {userCampgroundName}               {siteIdString}          {fromMonth} {userFromDate.Day}, {userFromDate.Year}         {fromMonth} {userToDate.Day}, {userFromDate.Year}         {reservationName}            {totalCost:C}                    ", Color.Gold);
             Console.WriteLine();
             Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             Console.WriteLine();
+            // TODO Will, Can we add Color to the "M" and "Q" here so they stand out?
             Console.Write(@"    Press M - Main Menu                                             Press Q - Quit                             Enter Selection: ", Color.WhiteSmoke);
 
             while (true)

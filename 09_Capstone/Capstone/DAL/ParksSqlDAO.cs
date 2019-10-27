@@ -15,6 +15,10 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Displays all parks within the Forest Search system.
+        /// </summary>
+        /// <returns></returns>
         public IList<Park> GetAllParks()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

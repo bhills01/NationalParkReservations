@@ -127,7 +127,7 @@ namespace Capstone
             
         }
         /// <summary>
-        /// prints the two options available on the main menu
+        /// Prints the two options available on the main menu
         /// </summary>
         private void PrintMainMenu()
         {

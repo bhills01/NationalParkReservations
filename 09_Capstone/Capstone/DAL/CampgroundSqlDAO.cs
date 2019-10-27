@@ -16,6 +16,11 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Generates a list of campgrounds in a given park.
+        /// </summary>
+        /// <param name="parkId"></param>
+        /// <returns></returns>
         public IList<Campground> Search(int parkId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

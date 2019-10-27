@@ -15,6 +15,14 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Given a from date and a to date, checks if a specific site is available to reserve.
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+
         public bool IsAvailable(DateTime fromDate, DateTime toDate, int siteId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -54,6 +62,14 @@ namespace Capstone.DAL
             }
         }
 
+        /// <summary>
+        /// Adds a reservation to the database, holding these dates for the user.
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="name"></param>
+        /// <param name="siteID"></param>
+        /// <returns></returns>
         public bool MakeReservation(DateTime fromDate, DateTime toDate, string name, int siteID)
         {
 
@@ -80,6 +96,30 @@ namespace Capstone.DAL
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Generates confirmation number using the reservation_id from the db.
+        /// </summary>
+        /// <returns></returns>
+        public int GetReservationId()
+        {
+            int reservationId;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand(@"
+                SELECT TOP 1 reservation_id
+                FROM reservation
+                ORDER BY reservation_id DESC"
+                , connection);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                reservationId = Convert.ToInt32(reader["reservation_id"]);
+            }
+            return reservationId;
         }
     }
 }

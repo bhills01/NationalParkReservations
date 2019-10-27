@@ -9,5 +9,7 @@ namespace Capstone.DAL
     {
         bool IsAvailable(DateTime fromDate, DateTime toDate, int siteId);
         bool MakeReservation(DateTime fromDate, DateTime toDate, string name, int campgroundId);
+
+        int GetReservationId();
     }
 }

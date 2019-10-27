@@ -15,6 +15,13 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Given a Campground ID, displays the Top 5 available sites.
+        /// </summary>
+        /// <param name="campgroundID"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <returns></returns>
         public IList<Site> Search(int campgroundID, DateTime fromDate, DateTime toDate)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -50,36 +57,6 @@ namespace Capstone.DAL
                 }
                 return sites;
             }
-        }
-
-        public bool IsAvailable(DateTime userFromDate, DateTime userToDate, DateTime resFromDate, DateTime resToDate, int siteID)
-        {
-            // Is requested FROM date within an existing reservation
-            if (userFromDate >= resFromDate && userFromDate <= resToDate)
-            {
-                return false;
-            }
-            // Is requested TO date within an existing reservation
-            else if (userToDate >= resFromDate && userToDate <= resToDate)
-            {
-                return false;
-            }
-            // Is existing FROM date within requested dates
-            else if (resFromDate >= userFromDate && resFromDate <= userToDate)
-            {
-                return false;
-            }
-            // Is existing TO date within requested dates
-            else if (resToDate >= userFromDate && resToDate <= userToDate)
-            {
-                return false;
-            }
-            // Is there no reservation for the dates requested
-            else if (resToDate == null || resFromDate == null)
-            {
-                return true;
-            }
-            return true;
         }
     }
 }

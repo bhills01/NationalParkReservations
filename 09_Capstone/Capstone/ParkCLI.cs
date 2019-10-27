@@ -14,8 +14,6 @@ namespace Capstone
 {
     public class ParkCLI : MainCLI
     {
- 
-        // Instanciating elements for the constructor
         private IParksDAO parksDAO;
         private ICampgroundDAO campgroundDAO;
         private ISiteDAO siteDAO;
@@ -23,7 +21,6 @@ namespace Capstone
         public ParkCLI(IParksDAO parksDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
             :base(parksDAO, campgroundDAO, siteDAO, reservationDAO)
         {
-            // Creating classes for use in this CLI
             this.parksDAO = parksDAO;
             this.campgroundDAO = campgroundDAO;
             this.siteDAO = siteDAO;
@@ -73,7 +70,7 @@ namespace Capstone
         }
 
         /// <summary>
-        /// Retrieves all parks from the db and displays them on the screen
+        /// Retrieves all parks from the db and displays them on the screen.
         /// </summary>
         private void GetAllParks()
         {
@@ -90,7 +87,7 @@ namespace Capstone
         }
 
         /// <summary>
-        /// Displays user choices for Park Menu
+        /// Displays user choices for Park Menu.
         /// </summary>
         private void PrintParkChoices()
         {

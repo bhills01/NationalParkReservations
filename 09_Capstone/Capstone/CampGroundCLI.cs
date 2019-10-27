@@ -32,7 +32,8 @@ namespace Capstone
         /// <summary>
         /// Runs menu to give user a choice of campgrounds from the choosen park.
         /// </summary>
-        /// <param name = "parkName" name="parkId"></param>
+        /// <param name="parkName"></param>
+        /// <param name="parkId"></param>
         public void RunCampGroundCLI(string parkName, int parkId)
         {
 
@@ -133,35 +134,37 @@ namespace Capstone
                     }
                 }
             }
-            /// <summary>
-            /// Displays the camps in the choosen park ID.
-            /// </summary>
-            void GetCampGroundList()
-            {
+        }
 
-                IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
-                {
-                    Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ", Color.YellowGreen);
-                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
-                    foreach (Campground campground in campgrounds)
-                    {
-                        string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
-                        string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
-                        Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(20)}     {(campground.Name).PadRight(15)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ", Color.YellowGreen);
-                        
-                    }
-                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
-                }
-            }
-            /// <summary>
-            /// Displays user choices for Campground Menu
-            /// </summary>
-            void PrintCampGroundChoices()
+        /// <summary>
+        /// Retrieves all parks from the db and displays them on the screen.
+        /// </summary>
+        void GetCampGroundList()
+        {
+
+            IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
             {
-                // TODO Will, Can we add Color to the "P" and "Campground ID" here so they stand out?
-                Console.WriteLine();
-                Console.Write(@"    Press P - Previous Menu                                             Enter Campground ID To View Sites                                      Enter Selection: ",Color.WhiteSmoke);
+                Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ", Color.YellowGreen);
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
+                foreach (Campground campground in campgrounds)
+                {
+                    string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
+                    string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
+                    Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(20)}     {(campground.Name).PadRight(15)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ", Color.YellowGreen);
+
+                }
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             }
+        }
+        /// <summary>
+        /// Displays user choices for Campground Menu.
+        /// </summary>
+        void PrintCampGroundChoices()
+        {
+            // TODO Will, Can we add Color to the "P" and "Campground ID" here so they stand out?
+            Console.WriteLine();
+            Console.Write(@"    Press P - Previous Menu                                             Enter Campground ID To View Sites                                      Enter Selection: ", Color.WhiteSmoke);
         }
     }
 }
+
