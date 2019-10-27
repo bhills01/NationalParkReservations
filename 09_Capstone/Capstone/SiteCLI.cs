@@ -163,7 +163,7 @@ namespace Capstone
         private void PrintSiteChoices()
         {
             Console.WriteLine();
-            Console.Write(@"    Press M - Main Menu                                             Enter Site ID To See Available Sites: ",Color.WhiteSmoke);
+            Console.Write(@"    Press M - Main Menu                                             Enter Site ID To Propt Reservation Comfirmation: ",Color.WhiteSmoke);
             //Console.WriteLine(" Enter Site ID to confirm your Reservation");
            
         }
