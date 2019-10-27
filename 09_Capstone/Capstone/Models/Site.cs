@@ -13,8 +13,6 @@ namespace Capstone.Models
         public bool Accesible { get; set; }
         public int MaxRvLength { get; set; }
         public bool Utilities { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
 
     }
 }
