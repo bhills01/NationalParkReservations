@@ -50,7 +50,6 @@ namespace Capstone
                         ParkCLI parkCLI = new ParkCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
                         parkCLI.RunParkCLI();
 
-
                         break;
 
                     case "q":
@@ -129,8 +128,9 @@ namespace Capstone
         /// </summary>
         private void PrintMainMenu()
         {
+            // TODO Will, Can we add Color to the "Q" and "Press 1" here so they stand out?
             Console.WriteLine();
-            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper: ", Color.WhiteSmoke);
+            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper                                 Enter Selection: ", Color.WhiteSmoke);
         }
     }
 }

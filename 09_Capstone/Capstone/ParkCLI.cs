@@ -58,10 +58,9 @@ namespace Capstone
                         switch (userChoice.ToLower())
                         {
 
-                            case "m":
+                            case "p":
                                 Console.Clear();
-                                MainCLI mainCLI = new MainCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                                mainCLI.RunMainMenuCLI();
+                                RunMainMenuCLI();
                                 break;
 
                             default:
@@ -95,9 +94,10 @@ namespace Capstone
         /// </summary>
         private void PrintParkChoices()
         {
+            // TODO Will, Can we add Color to the "p" and "Park ID" here so they stand out?
             Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             Console.WriteLine();
-            Console.Write(@"    Press M - Main Menu                                             Enter Park ID To Select Park: ", Color.WhiteSmoke);
+            Console.Write(@"    Press P - Previous Menu                                             Enter Park ID To Select Park                                 Enter Selection: ", Color.WhiteSmoke);
            
         }
     }

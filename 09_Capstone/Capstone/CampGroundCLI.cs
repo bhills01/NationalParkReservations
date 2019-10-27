@@ -107,29 +107,21 @@ Console.WriteLine("_____________________________________________________________
                         string cgIdString = campground.CampgroundId.ToString();
                         if (userChoice == cgIdString)
                         {
-                            // TODO need to put fix it if the user does not enter date correctly here. Can probably override CliHelper Get String method to fix
-                            //TODO found problem, when selecting a campground right befor entering dates, will not accept 2 or 3, it says the choice is invalid
-                            //string from = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
-                            //string to = CLIHelper.GetString("Please enter arrival Date (YYYY-MM-DD): ");
-                            //DateTime fromDate = DateTime.Parse(from);
-                            //DateTime toDate = DateTime.Parse(to);   
                             Console.WriteLine();
                             DateTime fromDate = CLIHelper.GetDateTime("Please Enter Arrival Date(YYYY-MM-DD): ");
                             DateTime toDate = CLIHelper.GetDateTime("Please Enter Departure Date (YYYY-MM-DD): ");
                             SiteCLI siteCLI = new SiteCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                            siteCLI.RunSiteCLI(campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
-
-
+                            siteCLI.RunSiteCLI(parkId, campground.CampgroundId, campground.Name, campground.DailyFee, fromDate, toDate);
                         }
                         else
                         {
                             switch (userChoice.ToLower())
                             {
 
-                                case "m":
+                                case "p":
                                     Console.Clear();
-                                    MainCLI mainCLI = new MainCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                                    mainCLI.RunMainMenuCLI();
+                                    ParkCLI parkCLI = new ParkCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
+                                    parkCLI.RunParkCLI();
                                     break;
 
                                 default:
@@ -166,8 +158,9 @@ Console.WriteLine("_____________________________________________________________
             /// </summary>
             void PrintCampGroundChoices()
             {
+                // TODO Will, Can we add Color to the "P" and "Campground ID" here so they stand out?
                 Console.WriteLine();
-                Console.Write(@"    Press M - Main Menu                                             Enter Campground ID To View Sites: ",Color.WhiteSmoke);
+                Console.Write(@"    Press P - Previous Menu                                             Enter Campground ID To View Sites                                      Enter Selection: ",Color.WhiteSmoke);
             }
         }
     }

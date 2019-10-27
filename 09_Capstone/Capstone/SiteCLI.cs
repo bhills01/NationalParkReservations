@@ -27,12 +27,13 @@ namespace Capstone
             this.reservationDAO = reservationDAO;
         }
 
+        int parkID;
         int userCampgroundID;
         string userCampgroundName;
         decimal userDailyFee;
         DateTime userFromDate;
         DateTime userToDate;
-        public void RunSiteCLI(int campgroundId, string campgroundName, decimal dailyFee, DateTime fromDate, DateTime toDate)
+        public void RunSiteCLI(int parkId, int campgroundId, string campgroundName, decimal dailyFee, DateTime fromDate, DateTime toDate)
         {
             userCampgroundID = campgroundId;
             userCampgroundName = campgroundName;
@@ -48,7 +49,6 @@ namespace Capstone
             while (true)
             {
                 string userChoice = Console.ReadLine();
-                // TODO Need to find userCampgroudID here when I figure out how to filter Top five by Site ID
                 IList<Site> sites = siteDAO.Search(userCampgroundID, userFromDate, userToDate);
                 foreach(Site site in sites)
                 {
@@ -58,7 +58,6 @@ namespace Capstone
                         int totalDays = HowManyDays(userFromDate, userToDate);
                         decimal totalCost = totalDays * userDailyFee;
 
-                        // TODO need to put fix it if the user does not enter their choice to confirm correctly here. 
                         string apptConfirm = CLIHelper.GetString($"Your total is {totalCost:C}, would you like to confirm your reservation. (Y)es or (N): ");
                         bool confirmAppointment;
                         if (apptConfirm == "y")
@@ -82,7 +81,6 @@ namespace Capstone
                         }
                         else
                         {
-                            // TODO Write menu function to return to previous menu or quit
                             // Temporary for tonight
                             Console.WriteLine("Fine Then!");
                             Console.ReadLine();
@@ -91,10 +89,10 @@ namespace Capstone
                 }
                 switch (userChoice.ToLower())
                 {
-                    case "m":
+                    case "p":
                         Console.Clear();
-                        MainCLI mainCLI = new MainCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
-                        mainCLI.RunMainMenuCLI();
+                        CampGroundCLI campgroundCLI = new CampGroundCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
+                        campgroundCLI.RunCampGroundCLI(parkId);
                         break;
 
                     default:
@@ -108,7 +106,6 @@ namespace Capstone
         {
             int totalDays = HowManyDays(userFromDate, userToDate);
             decimal totalCost = totalDays * userDailyFee;
-            // TODO Need to find userCampgroudID here when I figure out how to filter Top five by Site ID
             IList<Site> sites = siteDAO.Search(userCampgroundID, userFromDate, userToDate);
             {
                 Console.WriteLine();
@@ -117,12 +114,11 @@ namespace Capstone
                 Console.WriteLine("  [ Site ID ]           [ Maximum Occupancy ]         [ Handicap Accessible ]     [ Maximum RV Length ]          [ Utilities Available ]   [ Campsite Number ]                                                       ", Color.GreenYellow);
                 Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
 
-                //int siteCounter = 0;
-              
                 foreach (Site site in sites)
                 {
-                            string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "no";
-                            string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "no";
+                    // TODO Need to add display if no sites are available
+                            string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "No";
+                            string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "No";
                             Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ", Color.GreenYellow);
                 }
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
@@ -131,8 +127,9 @@ namespace Capstone
 
         private void PrintSiteChoices()
         {
+            // TODO Will, Can we add Color to the "P" and "Site ID" here so they stand out?
             Console.WriteLine();
-            Console.Write(@"    Press M - Main Menu                                             Enter Site ID To Propt Reservation Comfirmation: ",Color.WhiteSmoke);
+            Console.Write(@"    Press P - Previous Menu                                             Enter Site ID To Propt Reservation Comfirmation                             Enter Selection: ",Color.WhiteSmoke);
         }
 
         /// <summary>
