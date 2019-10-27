@@ -6,10 +6,6 @@ namespace Capstone.Models
 {
     public class Park
     {
-        // Constructor
-
-        // Properties
-
         public int ParkId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
@@ -17,7 +13,5 @@ namespace Capstone.Models
         public int Area { get; set; }
         public int VisitorCount { get; set; }
         public string Description { get; set; }
-
-
     }
 }

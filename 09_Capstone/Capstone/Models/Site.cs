@@ -13,6 +13,5 @@ namespace Capstone.Models
         public bool Accesible { get; set; }
         public int MaxRvLength { get; set; }
         public bool Utilities { get; set; }
-
     }
 }

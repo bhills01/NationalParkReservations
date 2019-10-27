@@ -10,7 +10,6 @@ namespace Capstone.DAL
     {
         private string connectionString;
 
-        // Single Parameter Constructor
         public ParksSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -20,16 +19,12 @@ namespace Capstone.DAL
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // Apoen the connection to SQL Server
                 connection.Open();
 
-                // Create Command object to execute queary to get all cities
                 SqlCommand cmd = new SqlCommand("SELECT * FROM park", connection);
 
-                // Execute the command to get a result set. read by the SQLReader
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                // Loop through the rows, and print data to the screen
                 List<Park> parks = new List<Park>();
                 while (reader.Read())
                 {

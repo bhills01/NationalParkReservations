@@ -91,7 +91,6 @@ namespace Capstone
                 }
                 switch (userChoice.ToLower())
                 {
-
                     case "m":
                         Console.Clear();
                         MainCLI mainCLI = new MainCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
@@ -104,7 +103,6 @@ namespace Capstone
                 }
             }
         }
-
         
         private void GetSiteList()
         {
@@ -123,50 +121,20 @@ namespace Capstone
               
                 foreach (Site site in sites)
                 {
-
-                    //IList<Reservation> siteAvailable = reservationDAO.IsAvailable(userFromDate, userToDate, userCampgroundID);
-
-                    //bool siteAvailable = reservationDAO.IsAvailable(userFromDate, userToDate, userCampgroundID);
-
-                    //if (siteAvailable == true)
-                        //{
-                        //foreach (Reservation reservation in siteAvailable)
-                        //{
-                        //TODO so you print 5 with this site counter, Brad  we now have reservationDAO.AVailablesites that returns a list of INTs (aka site id's of available sites) idk y it doesnt work
-                    //if (siteCounter < 5)
-                    //{
-                    //    IList<int> topFive = reservationDAO.AvailableSites(userFromDate, userToDate);
-
-                        //if (topFive.Contains(site.SiteId))
-                        //{
                             string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "no";
                             string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "no";
                             Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ", Color.GreenYellow);
-                    //        siteCounter++;
-                    //    }
-                        
-                    //}
-                    //else
-                    //{
-                    //    siteCounter = 0;
-                    //    break;
-                    //}
-                    
                 }
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
-
             }
         }
-
-
 
         private void PrintSiteChoices()
         {
             Console.WriteLine();
             Console.Write(@"    Press M - Main Menu                                             Enter Site ID To Propt Reservation Comfirmation: ",Color.WhiteSmoke);
-            //Console.WriteLine(" Enter Site ID to confirm your Reservation");
-           
         }
+
         /// <summary>
         /// Given two dates, calculates the difference in days
         /// </summary>
@@ -179,6 +147,5 @@ namespace Capstone
 
             return value.Days;
         }
-
     }
 }

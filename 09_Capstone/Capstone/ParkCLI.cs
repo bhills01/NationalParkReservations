@@ -78,33 +78,6 @@ namespace Capstone
         /// </summary>
         private void GetAllParks()
         {
-            //List<string> Wrap(string text, int margin)
-            //{
-            //    int start = 0, end;
-            //    var lines = new List<string>();
-            //    text = Regex.Replace(text, @"\s", " ").Trim();
-
-            //    while ((end = start + margin) < text.Length)
-            //    {
-            //        while (text[end] != ' ' && end > start)
-            //            end -= 1;
-
-            //        if (end == start)
-            //            end = start + margin;
-
-            //        lines.Add(text.Substring(start, end - start));
-            //        start = end + 1;
-            //    }
-
-            //    if (start < text.Length)
-            //        lines.Add(text.Substring(start));
-
-            //    return lines;
-            //}
-            
-            ///<summary>
-            ///this gets all parks so we can print them out 
-            ///</summary>
             IList<Park> parks = parksDAO.GetAllParks();
             
             {
@@ -113,15 +86,6 @@ namespace Capstone
                 foreach (Park park in parks)
                 {
                     Console.WriteLine($"                         {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}",Color.GreenYellow);
-                    //Console.WriteLine("_____________________________________________________________________________________________________________________________________________________________");
-                    //List<string> decript = Wrap(park.Description, 155);
-                    //Console.WriteLine();
-                    //foreach (string dp in decript)
-                    //{
-                    //    Console.WriteLine($"         {dp}");
-                    //}
-                    //Console.WriteLine();
-                    //Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 }
             }
         }
@@ -136,8 +100,5 @@ namespace Capstone
             Console.Write(@"    Press M - Main Menu                                             Enter Park ID To Select Park: ", Color.WhiteSmoke);
            
         }
-
-
-
     }
 }

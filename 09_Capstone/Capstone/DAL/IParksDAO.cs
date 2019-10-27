@@ -8,7 +8,5 @@ namespace Capstone.DAL
     public interface IParksDAO
     {
         IList<Park> GetAllParks();
-
-
     }
 }

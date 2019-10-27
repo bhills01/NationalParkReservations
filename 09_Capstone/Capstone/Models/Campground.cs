@@ -12,9 +12,5 @@ namespace Capstone.Models
         public int OpenMonth { get; set; }
         public int ClosedMonth { get; set; }
         public decimal DailyFee { get; set; }
-
-
-
-
     }
 }

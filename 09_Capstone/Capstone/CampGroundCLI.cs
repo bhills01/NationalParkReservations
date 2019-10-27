@@ -168,9 +168,7 @@ Console.WriteLine("_____________________________________________________________
             {
                 Console.WriteLine();
                 Console.Write(@"    Press M - Main Menu                                             Enter Campground ID To View Sites: ",Color.WhiteSmoke);
-               
             }
-
         }
     }
 }
