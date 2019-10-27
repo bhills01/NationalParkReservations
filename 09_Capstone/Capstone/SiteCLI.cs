@@ -1,6 +1,8 @@
 ﻿using Capstone.DAL;
 using Capstone.Models;
 using System;
+using System.Drawing;
+using Console = Colorful.Console;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -110,13 +112,15 @@ namespace Capstone
             decimal totalCost = totalDays * userDailyFee;
             // TODO Need to find userCampgroudID here when I figure out how to filter Top five by Site ID
             IList<Site> sites = siteDAO.Search(userCampgroundID, userFromDate, userToDate);
-            // TODO Here is where to edit the SITE MENU
             {
                 Console.WriteLine();
-                Console.WriteLine($"                                             {userCampgroundName}                     |Total Price for {totalDays} Days| {totalCost:C}                       ");
-                Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________");
-                Console.WriteLine("  [ Site ID ]           [ Maximum Occupancy ]         [ Handicap Accessible ]     [ Maximum RV Length ]          [ Utilities Available ]   [ Campsite Number ]                                                       ");
-                Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine($"                                             {userCampgroundName}                     |Total Price for {totalDays} Days| {totalCost:C}                       ",Color.Yellow);
+                Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
+                Console.WriteLine("  [ Site ID ]           [ Maximum Occupancy ]         [ Handicap Accessible ]     [ Maximum RV Length ]          [ Utilities Available ]   [ Campsite Number ]                                                       ", Color.GreenYellow);
+                Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
+
+                int siteCounter = 0;
+              
                 foreach (Site site in sites)
                 {
 
@@ -125,17 +129,34 @@ namespace Capstone
                     //bool siteAvailable = reservationDAO.IsAvailable(userFromDate, userToDate, userCampgroundID);
 
                     //if (siteAvailable == true)
-                    //{
+                        //{
                         //foreach (Reservation reservation in siteAvailable)
                         //{
+                        //TODO so you print 5 with this site counter, Brad  we now have reservationDAO.AVailablesites that returns a list of INTs (aka site id's of available sites) idk y it doesnt work
+                        if (siteCounter < 5)
+                    {
+                        IList<int> topFive = reservationDAO.AvailableSites(userFromDate, userToDate);
+                        if (topFive.Contains(site.SiteId))
+                        
+                        {
+
+                        
+
                         string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "no";
                         string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "no";
-                        Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ");
-                        //}
-                    //}
-
+                        Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ", Color.GreenYellow);
+                        siteCounter++;
+                        }
+                        
+                    }
+                    else
+                    {
+                        siteCounter = 0;
+                        break;
+                    }
+                    
                 }
-                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
 
             }
         }
@@ -143,7 +164,7 @@ namespace Capstone
         private void PrintSiteChoices()
         {
             Console.WriteLine();
-            Console.Write(@"    Press M - Main Menu                                             Enter Site ID To Confirm Reservation: ");
+            Console.Write(@"    Press M - Main Menu                                             Enter Site ID To See Available Sites: ",Color.WhiteSmoke);
             //Console.WriteLine(" Enter Site ID to confirm your Reservation");
            
         }

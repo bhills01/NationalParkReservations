@@ -90,8 +90,56 @@ namespace Capstone.DAL
             }
             
         }
+        /// <summary>
+        /// method that creates a list of all site id's that are available
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="siteId"></param>
+        /// <returns></returns>
+        public IList<int> AvailableSites(DateTime fromDate, DateTime toDate)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-            public bool MakeReservation(DateTime fromDate, DateTime toDate, string name, int siteID)
+                SqlCommand cmd = new SqlCommand($"SELECT * " +
+                    $"FROM reservation r " +
+                    $"JOIN site s ON s.site_id = r.site_id " +
+                    $"JOIN campground cg ON cg.campground_id = s.campground_id "
+                    
+                    , connection);
+                
+                SqlDataReader reader = cmd.ExecuteReader();
+                List<int> Syte = new List<int>();
+                List<Reservation> reservations = new List<Reservation>();
+                while (reader.Read())
+                {
+                    Reservation reservation = new Reservation();
+                    reservation.FromDate = Convert.ToDateTime(reader["from_date"]);
+                    reservation.ToDate = Convert.ToDateTime(reader["to_date"]);
+                    reservations.Add(reservation);
+
+                    foreach (Reservation checkReservation in reservations)
+                    {
+                        if (fromDate >= checkReservation.FromDate && fromDate <= checkReservation.ToDate && toDate <= checkReservation.ToDate && toDate >= checkReservation.FromDate)
+                        {
+                            ;
+                            
+                        }
+                        else
+                        {
+                            Syte.Add(checkReservation.SiteId);
+                            
+                        }
+                    }
+                }
+                return Syte;
+            }
+
+        }
+
+        public bool MakeReservation(DateTime fromDate, DateTime toDate, string name, int siteID)
             {
                 bool areDatesAvailable = IsAvailable(fromDate, toDate, siteID);
 

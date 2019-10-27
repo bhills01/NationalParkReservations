@@ -1,6 +1,9 @@
 ﻿using Capstone.DAL;
-using Capstone.Models;
 using System;
+using System.Drawing;
+using Console = Colorful.Console;
+using Capstone.Models;
+
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -25,8 +28,10 @@ namespace Capstone
             this.siteDAO = siteDAO;
             this.reservationDAO = reservationDAO;
         }
-        // TODO Have user put in dates prior to showing available sites. Then make searching exclusive to dates provided
-
+        
+        /// <summary>
+        /// Main Menu that prints header and menu options. Pressing one will open the Park Reservation service and Q will quit application
+        /// </summary>
         public void RunMainMenuCLI()
         {
             PrintHeader();
@@ -41,7 +46,7 @@ namespace Capstone
                 switch (userChoice.ToLower())
                 {
                     case "1":
-                        //RunParkMenuCLI();
+                        
                         ParkCLI parkCLI = new ParkCLI(parksDAO, campgroundDAO, siteDAO, reservationDAO);
                         parkCLI.RunParkCLI();
 
@@ -101,7 +106,7 @@ namespace Capstone
         //}
 
 
-
+            //---------------------------------------------------------Contains code for Wraping text 
         //    private void GetAllParks()
         //    {
         //        List<string> Wrap(string text, int margin)
@@ -278,25 +283,52 @@ namespace Capstone
         //    }
         //}
 
-
+            /// <summary>
+            /// prints the Title Header
+            /// </summary>
         protected void PrintHeader()
         {
-            Console.WriteLine(@"                                                                                                                                                                                                                                                                                                                       
-       %#           @@@& @@@@    @@@@   @@@@@@@. @@@* @@@@@@@@@  @@@# @@@@    @@@@    @@@@        @@@@@@@@@   @@@@&    @@@@@@@@@ .@@@  &@@@         %%         
-      @@( .         @@@@ @@@@   /@@@@# (#%@@@%## @@@* @@@&.#@@@  @@@@ @@@@   *@@@@%   @@@@        @@@/./@@@   @@@@@    @@@*.@@@@ .@@@  @@@%        &@( /       
-      @@@@/         @@@@ @@@@   @@@@@@   .@@@.   @@@* @@@# *@@@  @@@@@@@@@   @@@@@@   @@@@        @@@, .@@@  ,@@@@@.   @@@. %@@@ .@@@ %@@@         &@@@%       
-      (#*@          @@@@@@@@@   @@@@@@,  .@@@.   @@@* @@@# *@@@  @@@@@@@@@  .@@@@@@   @@@@        @@@, .@@@  @@@&@@@   @@@. %@@@ .@@@ @@@*       (&.%@@(@,     
-     *%@@@@/        @@@@@@@@@  #@@@#@@@  .@@@.   @@@* @@@# *@@@  @@@@@@@@@  @@@&@@@&  @@@@        @@@, .@@@  @@@ @@@   @@@(/@@@@ .@@@@@@@,       /#@@@@# ,/    
-     @@@@@@&, .     @@@%@@@@@  @@@/ @@@  .@@@.   @@@* @@@# *@@@  @@@@@@@@@  @@@,,@@@  @@@@        @@@@@@@@@ *@@@ @@@%  @@@@@@@@@ .@@@ @@@@        @@@@@@@, ,   
-  #%@%%@@@&%%*      @@@ @@@@@  @@@@@@@@* .@@@.   @@@* @@@# *@@@  @@@ @@@@@ ,@@@@@@@@. @@@@        @@@/,,,   @@@@@@@@@  @@@.@@@@  .@@@ *@@@,    #(@&%@@@@&%,    
-   (@@@@@@@@#       @@@ &@@@@ %@@@@@@@@@ .@@@.   @@@* @@@@@@@@@  @@@ #@@@@ @@@@@@@@@@ @@@@@@@,    @@@,     .@@@@@@@@@  @@@. @@@* .@@@  @@@@     ,&@@@@@@@%     
-       #@           @@@  @@@@ @@@#  /@@@ .@@@.   @@@* (@@@@@@@%  @@@  @@@@ @@@%  &@@@ @@@@@@@     @@@,     &@@@   @@@& @@@. @@@@ .@@@  @@@@         ,@         
-__________________________________________________________________________________________________________________________________________________________________________
-**************************************************************************************************************************************************************************");
+            
+            Console.WriteLine(@"                                                                  
+                                                                             M                                   
+                                                                            MMM                                   
+                                                                           MMMMM                                  
+                                                                          MMMMMMM                                 
+                                                                         MMMMMMMMM                                
+                                                                        MMMMM MMMMM                                
+                                                                       MMMMM=  MMMMM                               
+                                                                      MMMMMM    MMMMM                              
+                                                                     MMMMMM     MMMMMM                             
+                                                                    MMMMMM       MMMMMM,                           
+                                                                   MMMMMM         MMMMMM                         
+                                                                  MMMMMM7          MMMMMM                         
+                                                        M        MMMMMMM           =MMMMMM        M                
+                                                       MMM      MMMMMMM             MMMMMMM      MMM               
+                                                      MMMMM    MMMMMMM               MMMMMMM    NMMMM              
+                                                     MMMMMMM. MMMMMMMMMM           +MMMMMMMMM  =MMMMMM             
+                                                    MMMMMMMMOMMMMMMMMMM             MMMMMMMMMMMMMMMMMMM             
+                                                   MMMMMMMMMMMMMMMMMMM               MMMMMMMMMMMMMMMMMMM.           
+                                                  MMMMMMMMMMMMMMMMMMM=                MMMMMMMMMMMMMMMMMMM           
+                                                 MMMMMMMMMMMMMMMMMMMM.                .MMMMMMMMMMMMMMMMMMM          
+                                                MMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMM          
+                                               MMMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMMM         
+                                              MMMMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMMMM        
+                                             MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM     MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",Color.DarkGreen);
+
+ Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
+            Console.WriteLine(@"                               ______  ____   _____   ______   _____  _______    _____  ______            _____    _____  _    _ 
+                              |  ____|/ __ \ |  __ \ |  ____| / ____||__   __|  / ____||  ____|    /\    |  __ \  / ____|| |  | |
+                              | |__  | |  | || |__) || |__   | (___     | |    | (___  | |__      /  \   | |__) || |     | |__| |
+                              |  __| | |  | ||  _  / |  __|   \___ \    | |     \___ \ |  __|    / /\ \  |  _  / | |     |  __  |
+                              | |    | |__| || | \ \ | |____  ____) |   | |     ____) || |____  / ____ \ | | \ \ | |____ | |  | |
+                              |_|     \____/ |_|  \_\|______||_____/    |_|    |_____/ |______|/_/    \_\|_|  \_\ \_____||_|  |_|", Color.WhiteSmoke);
+            Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
            
             
         }
-
+        /// <summary>
+        /// prints the two options available on the main menu
+        /// </summary>
         private void PrintMainMenu()
         {
             Console.WriteLine();

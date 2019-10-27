@@ -1,6 +1,8 @@
 ﻿using Capstone.DAL;
 using Capstone.Models;
 using System;
+using System.Drawing;
+using Console = Colorful.Console;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -83,15 +85,15 @@ namespace Capstone
                 Console.Clear();
                 PrintHeader();
                 Console.WriteLine();
-                Console.WriteLine($@"                                                                         {parkName}
-__________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine($"                                                                         {parkName}", Color.Yellow);
+Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                 Console.WriteLine();
                 foreach (string dp in decript)
                 {
-                    Console.WriteLine($"         {dp}");
+                    Console.WriteLine($"         {dp}", Color.ForestGreen);
                 }
                 Console.WriteLine();
-                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
 
                 GetCampGroundList();
                 PrintCampGroundChoices();
@@ -131,7 +133,7 @@ ________________________________________________________________________________
                                     break;
 
                                 default:
-                                    Console.WriteLine("The command provided was not a valid command, please try again.");
+                                    Console.WriteLine("The command provided was not a valid command, please try again.", Color.Red);
                                     break;
                             }
                         }
@@ -147,16 +149,16 @@ ________________________________________________________________________________
                 IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
                 // TODO Here is where to edit the CAMPGROUND MENU
                 {
-                    Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ");
-                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+                    Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ", Color.YellowGreen);
+                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                     foreach (Campground campground in campgrounds)
                     {
                         string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
                         string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
-                        Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(20)}     {(campground.Name).PadRight(15)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ");
+                        Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(20)}     {(campground.Name).PadRight(15)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ", Color.YellowGreen);
                         
                     }
-                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+                    Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                 }
             }
             /// <summary>
@@ -165,7 +167,7 @@ ________________________________________________________________________________
             void PrintCampGroundChoices()
             {
                 Console.WriteLine();
-                Console.Write(@"    Press M - Main Menu                                             Enter Campground ID To View Site Availability: ");
+                Console.Write(@"    Press M - Main Menu                                             Enter Campground ID To View Sites: ",Color.WhiteSmoke);
                
             }
 

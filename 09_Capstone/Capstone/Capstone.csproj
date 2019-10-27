@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.9" />
     <PackageReference Include="microsoft.extensions.configuration" Version="2.2.0" />
     <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="2.2.0" />
     <PackageReference Include="microsoft.extensions.configuration.json" Version="2.2.0" />

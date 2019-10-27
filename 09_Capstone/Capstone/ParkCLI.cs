@@ -1,6 +1,8 @@
 ﻿using Capstone.DAL;
 using Capstone.Models;
 using System;
+using System.Drawing;
+using Console = Colorful.Console;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -63,7 +65,7 @@ namespace Capstone
                                 break;
 
                             default:
-                                Console.WriteLine("The command provided was not a valid command, please try again.");
+                                Console.WriteLine("The command provided was not a valid command, please try again.",Color.OrangeRed);
                                 break;
                         }
                     }
@@ -99,15 +101,18 @@ namespace Capstone
 
             //    return lines;
             //}
-
+            
+            ///<summary>
+            ///this gets all parks so we can print them out 
+            ///</summary>
             IList<Park> parks = parksDAO.GetAllParks();
-            // TODO Here is where to edit the PARK MENU
+            
             {
-                Console.WriteLine("                    [ Park ID ]           [ Park Name ]                [ Location ]          [ Established ]     [ Size ]         [ Annual Visitors ]                                         ");
-                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+                Console.WriteLine("                    [ Park ID ]           [ Park Name ]                [ Location ]          [ Established ]     [ Size ]         [ Annual Visitors ]                                         ", Color.GreenYellow);
+                Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                 foreach (Park park in parks)
                 {
-                    Console.WriteLine($"                         {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}");
+                    Console.WriteLine($"                         {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}",Color.GreenYellow);
                     //Console.WriteLine("_____________________________________________________________________________________________________________________________________________________________");
                     //List<string> decript = Wrap(park.Description, 155);
                     //Console.WriteLine();
@@ -126,7 +131,7 @@ namespace Capstone
         /// </summary>
         private void PrintParkChoices()
         {
-            Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________");
+            Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             Console.WriteLine();
             Console.Write(@"    Press M - Main Menu                                             Enter Park ID To Select Park: ");
            
