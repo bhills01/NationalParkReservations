@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Colorful;
 
 namespace Capstone
 {
@@ -75,13 +76,27 @@ namespace Capstone
         private void GetAllParks()
         {
             IList<Park> parks = parksDAO.GetAllParks();
-            
+
             {
-                Console.WriteLine("                    [ Park ID ]           [ Park Name ]                [ Location ]          [ Established ]     [ Size ]         [ Annual Visitors ]                                         ", Color.GreenYellow);
+                string menu = "                    [ {0} ]           [ {1} ]                [ {2} ]          [ {3} ]     [ {4} ]         [ {5} ]                                         ";
+
+                
+                Formatter[] fruits = new Formatter[]
+                {
+    new Formatter("Park ID", Color.WhiteSmoke),
+    new Formatter("Park Name", Color.WhiteSmoke),
+    new Formatter("Location",Color.WhiteSmoke),
+    new Formatter("Established",Color.WhiteSmoke),
+    new Formatter("Size", Color.WhiteSmoke),
+    new Formatter("Annual Visitors", Color.WhiteSmoke)
+
+                };
+                Console.WriteFormatted(menu, Color.Yellow, fruits);
+                Console.WriteLine();
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                 foreach (Park park in parks)
                 {
-                    Console.WriteLine($"                         {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}",Color.GreenYellow);
+                    Console.WriteLine($"                         {park.ParkId.ToString().PadRight(20),5}{park.Name.ToString().PadRight(20),-30}{park.Location.ToString().PadRight(20)}{park.EstablishDate,-20:d}{park.Area.ToString().PadRight(20)}{park.VisitorCount.ToString().PadRight(20)}",Color.Yellow);
                 }
             }
         }
@@ -92,10 +107,23 @@ namespace Capstone
         private void PrintParkChoices()
         {
             // TODO Will, Can we add Color to the "p" and "Park ID" here so they stand out?
+            string menu = "    Press {0} - {4} Menu                       Enter {2} To {5} Park                             Enter Selection: ";
+            Formatter[] fruits = new Formatter[]
+            {
+    new Formatter("P", Color.OrangeRed),
+    new Formatter("M", Color.Pink),
+    new Formatter("Park ID",Color.Green),
+    new Formatter("Selection",Color.Green),
+    new Formatter("Previous", Color.OrangeRed),
+    new Formatter("Select", Color.Green)
+
+            };
+
+
+            
             Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
             Console.WriteLine();
-            Console.Write(@"    Press P - Previous Menu                                             Enter Park ID To Select Park                                 Enter Selection: ", Color.WhiteSmoke);
-           
+            Console.WriteFormatted(menu, Color.WhiteSmoke, fruits);
         }
     }
 }

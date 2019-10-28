@@ -45,22 +45,22 @@ namespace ProjectOrganizerTests
         }
 
 
+        //TODO find out where this went
+        //[TestMethod]
+        //public void SearchReservationTest()
+        //{
+        //    // Arrange
+        //    ReservationSqlDAO reserve = new ReservationSqlDAO(connectionString);
+
+        //    // Act
+        //    IList<Reservation> reserveList = reserve.Search(1);
+        //    //Assert
+        //    Assert.AreEqual(1, reserveList.Count);
+        //}
+
 
         [TestMethod]
-        public void SearchReservationTest()
-        {
-            // Arrange
-            ReservationSqlDAO reserve = new ReservationSqlDAO(connectionString);
-
-            // Act
-            IList<Reservation> reserveList = reserve.Search(1);
-            //Assert
-            Assert.AreEqual(1, reserveList.Count);
-        }
-
-
-        [TestMethod]
-        public void IsAvailableTest()
+        public void AvailablityTest()
         {
             // Arrange
             ReservationSqlDAO reserve = new ReservationSqlDAO(connectionString);

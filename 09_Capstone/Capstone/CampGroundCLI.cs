@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Colorful;
 
 namespace Capstone
 {
@@ -92,7 +93,7 @@ namespace Capstone
                 Console.WriteLine();
                 foreach (string dp in decript)
                 {
-                    Console.WriteLine($"         {dp}", Color.ForestGreen);
+                    Console.WriteLine($"         {dp}", Color.DarkKhaki);
                 }
                 Console.WriteLine();
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
@@ -144,13 +145,26 @@ namespace Capstone
 
             IList<Campground> campgrounds = campgroundDAO.Search(userParkId);
             {
-                Console.WriteLine("            [ Campground ID ]           [ Campground Name ]            [ Open Month ]           [ Closing Month ]        [ Daily Fee ]                                                       ", Color.YellowGreen);
+                String menu1 = "            [ {0} ]           [ {1} ]                      [ {2} ]          [ {3} ]       [ {4} ]                                                       ";
+
+                Formatter[] fruits = new Formatter[]
+                   {
+    new Formatter("Campground ID", Color.WhiteSmoke),
+    new Formatter("Campground Name", Color.WhiteSmoke),
+    new Formatter("Open Month",Color.WhiteSmoke),
+    new Formatter("Closing Month",Color.WhiteSmoke),
+    new Formatter("Daily Fee", Color.WhiteSmoke),
+    
+
+                   };
+                Console.WriteFormatted(menu1, Color.Yellow, fruits);
+                Console.WriteLine();
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                 foreach (Campground campground in campgrounds)
                 {
                     string openMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.OpenMonth);
                     string closedMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(campground.ClosedMonth);
-                    Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(20)}     {(campground.Name).PadRight(15)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ", Color.YellowGreen);
+                    Console.WriteLine($"                  {campground.CampgroundId.ToString().PadRight(18)}     {(campground.Name).PadRight(25)}               {openMonth.PadRight(20)}       {closedMonth.PadRight(10)}             {campground.DailyFee:C}                 ", Color.Yellow);
 
                 }
                 Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
@@ -162,8 +176,21 @@ namespace Capstone
         void PrintCampGroundChoices()
         {
             // TODO Will, Can we add Color to the "P" and "Campground ID" here so they stand out?
+            string menu = "    Press {0} - {4} Menu                       Enter {2} To {5}                             Enter Selection: ";
+            Formatter[] fruits = new Formatter[]
+            {
+    new Formatter("P", Color.OrangeRed),
+    new Formatter("M", Color.Pink),
+    new Formatter("CampGround ID",Color.Green),
+    new Formatter("Selection",Color.Green),
+    new Formatter("Previous", Color.OrangeRed),
+    new Formatter("View Sites", Color.Green)
+
+            };
+
+
             Console.WriteLine();
-            Console.Write(@"    Press P - Previous Menu                                             Enter Campground ID To View Sites                                      Enter Selection: ", Color.WhiteSmoke);
+            Console.WriteFormatted(menu, Color.WhiteSmoke, fruits);
         }
     }
 }

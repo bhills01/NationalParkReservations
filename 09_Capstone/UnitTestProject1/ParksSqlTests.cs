@@ -52,7 +52,7 @@ namespace ProjectOrganizerTests
             ParksSqlDAO park = new ParksSqlDAO(connectionString);
             List<Park> parkList = new List<Park>();
             // Act
-            IList<Park> parkList = park.GetAllParks();
+            parkList =(List<Park>) park.GetAllParks();
             //Assert
             Assert.AreEqual(2, parkList.Count);
         }

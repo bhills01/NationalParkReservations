@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Colorful;
 
 namespace Capstone
 {
@@ -131,9 +132,23 @@ namespace Capstone
         /// </summary>
         private void PrintMainMenu()
         {
-            // TODO Will, Can we add Color to the "Q" and "Press 1" here so they stand out?
+            
+            string menu = "    Press {0} - {4}                       Press {2} To {5} Forest Search                             Enter Selection: ";
+            Formatter[] fruits = new Formatter[]
+            {
+    new Formatter("Q", Color.Red),
+    new Formatter("M", Color.Pink),
+    new Formatter("1",Color.Green),
+    new Formatter("Selection",Color.Green),
+    new Formatter("Quit", Color.Red),
+    new Formatter("Enter", Color.Green)
+
+            };
+
+
             Console.WriteLine();
-            Console.Write(@" Press Q - Quit                       Press 1 - To Enter The National Park Reservation Helper                                 Enter Selection: ", Color.WhiteSmoke);
+            Console.WriteFormatted(menu, Color.WhiteSmoke, fruits);
+           
         }
     }
 }

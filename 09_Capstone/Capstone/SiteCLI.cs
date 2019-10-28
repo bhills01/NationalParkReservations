@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Colorful;
 
 namespace Capstone
 {
@@ -128,12 +129,24 @@ namespace Capstone
                 Console.WriteLine();
                 Console.WriteLine($"                                             {userCampgroundName}                     |Total Price for {totalDays} Days| {totalCost:C}                       ",Color.Yellow);
                 Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
-                Console.WriteLine("  [ Site ID ]           [ Maximum Occupancy ]         [ Handicap Accessible ]     [ Maximum RV Length ]          [ Utilities Available ]   [ Campsite Number ]                                                       ", Color.GreenYellow);
+                string menu = "  [ {0} ]           [ {1} ]         [ {2} ]     [ {3} ]          [ {4} ]   [ {5} ]                                                       ";
+                Formatter[] fruits = new Formatter[]
+                   {
+    new Formatter("Site ID", Color.WhiteSmoke),
+    new Formatter("Maximum Occupancy", Color.WhiteSmoke),
+    new Formatter("OHandicap Accessible",Color.WhiteSmoke),
+    new Formatter("Maximum RV Length",Color.WhiteSmoke),
+    new Formatter("Utilities Available", Color.WhiteSmoke),
+    new Formatter("Campsite Number", Color.WhiteSmoke),
+
+                   };
+                Console.WriteFormatted(menu, Color.Yellow, fruits);
+                Console.WriteLine();
                 Console.WriteLine("___________________________________________________________________________________________________________________________________________________________________________",Color.DimGray);
 
                 if (sites.Count == 0)
                 {
-                    Console.WriteLine("---------------------------------------------------        Sorry, no sites are available for the provided dates        ---------------------------------------------------");
+                    Console.WriteLine("---------------------------------------------------        Sorry, no sites are available for the provided dates        ---------------------------------------------------", Color.OrangeRed);
                     PrintNoSitesAvailableChoices();
                     while (true)
                     {
@@ -152,7 +165,7 @@ namespace Capstone
                                 return;
 
                             default:
-                                Console.WriteLine("The command provided was not a valid command, please try again.");
+                                Console.WriteLine("The command provided was not a valid command, please try again.",Color.OrangeRed);
                                 break;
                         }
                     }
@@ -163,7 +176,7 @@ namespace Capstone
                     {
                         string isAccessible = (site.Accesible == true) ? isAccessible = "Yes" : isAccessible = "No";
                         string hasUtilities = (site.Utilities == true) ? isAccessible = "Yes" : isAccessible = "No";
-                        Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ", Color.GreenYellow);
+                        Console.WriteLine($"     {site.SiteId.ToString().PadRight(25)} {site.MaxOccupants.ToString().PadRight(30)}   {isAccessible.PadRight(15)}            {site.MaxRvLength + "ft.".PadRight(30)}    {hasUtilities.PadRight(20)}   {site.SiteNumber}              ",Color.Yellow);
                     }
                     Console.WriteLine("__________________________________________________________________________________________________________________________________________________________________________", Color.DimGray);
                     PrintSiteChoices();
@@ -176,9 +189,23 @@ namespace Capstone
         /// </summary>
         private void PrintSiteChoices()
         {
-            // TODO Will, Can we add Color to the "P" and "Site ID" here so they stand out?
+            string menu = "    Press {0} - {4}                               Enter {2} To Prompt Reservation Comfirmation                             Enter {3}: ";
+            Formatter[] fruits = new Formatter[]
+            {
+    new Formatter("P", Color.OrangeRed),
+    new Formatter("M", Color.Pink),
+    new Formatter("Site ID",Color.Yellow),
+    new Formatter("Selection",Color.Yellow),
+    new Formatter("Previous Menu", Color.LightSeaGreen),
+    new Formatter("Main Menu", Color.Pink)
+
+            };
+
+
             Console.WriteLine();
-            Console.Write(@"    Press P - Previous Menu                                             Enter Site ID To Prompt Reservation Comfirmation                             Enter Selection: ",Color.WhiteSmoke);
+            Console.WriteFormatted(menu, Color.WhiteSmoke, fruits);
+            
+            //Console.Write(@"    Press P - Previous Menu                                             Enter Site ID To Prompt Reservation Comfirmation                             Enter Selection: ",Color.WhiteSmoke);
         }
 
         /// <summary>
@@ -186,9 +213,21 @@ namespace Capstone
         /// </summary>
         private void PrintNoSitesAvailableChoices()
         {
-            // TODO Will, Can we add Color to the "P" and "M" here so they stand out?
+            
+            string menu = "    Press {0} - {2}                                            Press {1} - {3}                                    Enter Selection: ";
+            Formatter[] fruits = new Formatter[]
+            {
+    new Formatter("P", Color.LightSeaGreen),
+    new Formatter("M", Color.Pink),
+    new Formatter("Previous Menu", Color.LightSeaGreen),
+    new Formatter("Main Menu", Color.Pink)
+
+            };
+
+            
             Console.WriteLine();
-            Console.Write(@"    Press P - Previous Menu                                             Press M - Main menu                                    Enter Selection: ", Color.WhiteSmoke);
+            Console.WriteFormatted(menu, Color.WhiteSmoke, fruits);
+            //Console.Write(@"    Press P - Previous Menu                                             Press M - Main menu                                    Enter Selection: ", Color.WhiteSmoke);
         }
 
         /// <summary>
@@ -250,7 +289,7 @@ namespace Capstone
                         return;
 
                     default:
-                        Console.WriteLine("The command provided was not a valid command, please try again.");
+                        Console.WriteLine("The command provided was not a valid command, please try again.",Color.OrangeRed);
                         break;
                 }
             }
